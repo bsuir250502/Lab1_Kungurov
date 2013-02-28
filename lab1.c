@@ -4,19 +4,8 @@
 // VARIANT 5
 typedef enum {JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEP,OCT,NOV,DEC,NONE} month;
 char MONTH[13][5]={"JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC","NONE"};
-struct date
-{
-    int d;
-    month m;
-    int y;
-};
-struct firm
-{
-    char name[30];
-    char tax[7];
-    struct date last_date;
-    struct date act_date;
-}   arr[50];
+struct firm;
+struct date;
 int mystrcmp(char *p,char *q)
 {
     int i=0,ind=0;
@@ -38,7 +27,7 @@ void mystrcpy(char *p,char *q)
         i++;
     }
 }
-void char_to_enum1(char *p,int i)
+void char_to_enum1(char *p,int i,struct firm arr)
 {
 
     if     ( mystrcmp(p, "jan") ) {arr[i].last_date.m=JAN;}
@@ -55,7 +44,7 @@ void char_to_enum1(char *p,int i)
     else if( mystrcmp(p, "dec") ) {arr[i].last_date.m=DEC;}
     else if( mystrcmp(p, "0"  ) ) {arr[i].last_date.m=NONE;}
 }
-void char_to_enum2(char *p,int i)
+void char_to_enum2(char *p,int i,struct firm arr)
 {
 
     if     ( mystrcmp(p, "jan") ) {arr[i].act_date.m=JAN;}
@@ -83,7 +72,7 @@ int myatoi(char q[])                   // в функцию передается указатель
     n=10*n+(*(q+i)-'0');
     return znak*n;                                               // возврат signed int
 }
-int debt(int i)
+int debt(int i,struct firm arr)
 {
     if(arr[i].act_date.y>arr[i].last_date.y) return 1;
     else if(arr[i].act_date.y<arr[i].last_date.y) return 0;
@@ -93,7 +82,7 @@ int debt(int i)
     else if(arr[i].act_date.d<arr[i].last_date.d) return 0;
     return 0;
 }
-void set_name()
+void set_name(struct firm arr)
 {
     int i;
     char *p;
@@ -107,7 +96,7 @@ void set_name()
         free(p);
     }
 }
-void set_tax()
+void set_tax(struct firm arr)
 {
     int i;
     for(i = 0; i < 50 && arr[i].name[1]; i++)
@@ -117,7 +106,7 @@ void set_tax()
         scanf("%s",arr[i].tax);
     }
 }
-void set_dates()
+void set_dates(struct firm arr)
 {
 
     int i;
@@ -129,18 +118,18 @@ void set_dates()
         printf("DD MMM YYYY:");
         fflush(stdin);
 	scanf("%d%s%d",&arr[i].last_date.d,p,&arr[i].last_date.y);
-	char_to_enum1(p,i);
+	char_to_enum1(p,i,&arr);
 	free(p);
 	p=(char*)malloc(4);
 	printf("Please enter date of the actual tax payment (or '0 'in all respects, if not been made) for the firm %s\n",arr[i].name);
 	printf("DD MMM YYYY:");
 	fflush(stdin);
 	scanf("%d%s%d",&arr[i].act_date.d,p,&arr[i].act_date.y);
-	char_to_enum2(p,i);
+	char_to_enum2(p,i,&arr);
 	free(p);
     }
 }
-void display_firms_data ()
+void display_firms_data (struct firm arr)
 {
     int i;
     for(i = 0; i < 50 && arr[i].name[1]; i++)
@@ -153,11 +142,24 @@ void display_firms_data ()
 }
 int main()
 {
+    struct date
+    {
+        int d;
+        month m;
+        int y;
+    };
+    struct firm
+    {
+        char name[30];
+        char tax[7];
+        struct date last_date;
+        struct date act_date;
+    }   arr[50];
     int i,j;
     struct firm tmp;
-    set_name();
-    set_tax();
-    set_dates();
+    set_name(&arr);
+    set_tax(&arr);
+    set_dates(&arr);
     //display_firms_data();
     for(i=0;i<49;i++)
     {
@@ -171,6 +173,12 @@ int main()
             }
         }
     }
+    j=0;
+    //for(i=0;i<49 && j<=5;i++)
+    //{
+    //    if (dept(i,&arr)) j++;
+    //    else
+    //}
     //if(debt(i)) printf("%s has a debt to pay tax value %s$",arr[i].name,arr[i].tax);
     display_firms_data();
     getch ();
