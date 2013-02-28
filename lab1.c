@@ -53,7 +53,7 @@ void char_to_enum1(char *p,int i)
     else if( mystrcmp(p, "okt") ) {arr[i].last_date.m=OCT;}
     else if( mystrcmp(p, "nov") ) {arr[i].last_date.m=NOV;}
     else if( mystrcmp(p, "dec") ) {arr[i].last_date.m=DEC;}
-    else if( mystrcmp(p, "0"  ) ) {arr[i].act_date.m=NONE;}
+    else if( mystrcmp(p, "0"  ) ) {arr[i].last_date.m=NONE;}
 }
 void char_to_enum2(char *p,int i)
 {
@@ -100,11 +100,11 @@ void set_name()
     for(i = 0; i < 50; i++)
     {
         p=(char*)malloc(30);
-	printf("Please enter company name Numb.%d:",i+1);
+	    printf("Please enter company name Numb.%d:",i+1);
         gets(p);
         if (mystrcmp(p,"end")) break;
-	else mystrcpy(arr[i].name,p);
-	free(p);
+	    else mystrcpy(arr[i].name,p);
+	    free(p);
     }
 }
 void set_tax()
@@ -127,17 +127,17 @@ void set_dates()
         p=(char*)calloc(4,1);
         printf("Please enter the date of the deadline for tax payment (or '0 'in all respects, if not been made) for the firm %s\n",arr[i].name);
         printf("DD MMM YYYY:");
-	fflush(stdin);
-	scanf("%d%s%d",&arr[i].last_date.d,p,&arr[i].last_date.y);
-	char_to_enum1(p,i);
-	free(p);
-	p=(char*)malloc(4);
-	printf("Please enter date of the actual tax payment (or '0 'in all respects, if not been made) for the firm %s\n",arr[i].name);
-	printf("DD MMM YYYY:");
-	fflush(stdin);
-	scanf("%d%s%d",&arr[i].act_date.d,p,&arr[i].act_date.y);
-	char_to_enum2(p,i);
-	free(p);
+	    fflush(stdin);
+	    scanf("%d%s%d",&arr[i].last_date.d,p,&arr[i].last_date.y);
+	    char_to_enum1(p,i);
+	    free(p);
+	    p=(char*)malloc(4);
+	    printf("Please enter date of the actual tax payment (or '0 'in all respects, if not been made) for the firm %s\n",arr[i].name);
+	    printf("DD MMM YYYY:");
+	    fflush(stdin);
+	    scanf("%d%s%d",&arr[i].act_date.d,p,&arr[i].act_date.y);
+	    char_to_enum2(p,i);
+	    free(p);
     }
 }
 void display_firms_data ()
@@ -146,20 +146,33 @@ void display_firms_data ()
     for(i = 0; i < 50 && arr[i].name[1]; i++)
     {
         printf("Information about the firm %s:\n",arr[i].name);
-	printf("The value of tax - %s\n",arr[i].tax);
-	printf("Date of tax payment deadline - %d/%s/%d\n",arr[i].last_date.d,MONTH[arr[i].last_date.m],arr[i].last_date.y);
-	printf("Date of the actual tax payment - %d/%s/%d\n",arr[i].act_date.d,MONTH[arr[i].act_date.m],arr[i].act_date.y);
+	    printf("The value of tax - %s\n",arr[i].tax);
+	    printf("Date of tax payment deadline - %d/%s/%d\n",arr[i].last_date.d,MONTH[arr[i].last_date.m],arr[i].last_date.y);
+	    printf("Date of the actual tax payment - %d/%s/%d\n",arr[i].act_date.d,MONTH[arr[i].act_date.m],arr[i].act_date.y);
     }
 }
 int main()
 {
-    int i;
+    int i,j;
+    struct firm tmp;
     set_name();
     set_tax();
     set_dates();
     //display_firms_data();
-    for(i=0;i<50;i++)
-    if(debt(i)) printf("%s has a debt to pay tax value %s$",arr[i].name,arr[i].tax);
+    for(i=0;i<49;i++)
+    {
+        for(j=i+1;j<50;j++)
+	    {
+            if (myatoi(arr[i].tax)<myatoi(arr[j].tax))
+            {
+                tmp=arr[i];
+                arr[i]=arr[j];
+                arr[j]=tmp;
+            }
+        }
+    }
+    //if(debt(i)) printf("%s has a debt to pay tax value %s$",arr[i].name,arr[i].tax);
+    display_firms_data();
     getch ();
     return 0;
 
