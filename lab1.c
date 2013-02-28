@@ -173,7 +173,6 @@ int main()
             }
         }
     }
-    j=0;
     //for(i=0;i<49 && j<=5;i++)
     //{
     //    if (dept(i,&arr)) j++;
@@ -181,6 +180,6 @@ int main()
     //}
     //if(debt(i)) printf("%s has a debt to pay tax value %s$",arr[i].name,arr[i].tax);
     display_firms_data();
-    getch ();
+    getch();
     return 0;
 }
