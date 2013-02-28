@@ -1,13 +1,12 @@
 #include<stdio.h>
 #include<conio.h>
 #include<malloc.h>
-#include<locale.h>
-// ВАРИАНТ 5
+// VARIANT 5
 typedef enum {JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEP,OCT,NOV,DEC,NONE} month;
-char MOUNTH[13][5]={"JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC","NONE"};
+char MONTH[13][5]={"JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC","NONE"};
 struct date
 {
-	int d;
+    int d;
 	month m;
 	int y;
 };
@@ -41,8 +40,8 @@ void mystrcpy(char *p,char *q)
 }
 void char_to_enum1(char *p,int i)
 {
-	 
-	 if     ( mystrcmp(p, "jan") ) {arr[i].last_date.m=JAN;} 
+
+	 if     ( mystrcmp(p, "jan") ) {arr[i].last_date.m=JAN;}
 	 else if( mystrcmp(p, "feb") ) {arr[i].last_date.m=FEB;}
 	 else if( mystrcmp(p, "mar") ) {arr[i].last_date.m=MAR;}
 	 else if( mystrcmp(p, "apr") ) {arr[i].last_date.m=APR;}
@@ -58,8 +57,8 @@ void char_to_enum1(char *p,int i)
 }
 void char_to_enum2(char *p,int i)
 {
-	 
-	 if     ( mystrcmp(p, "jan") ) {arr[i].act_date.m=JAN;} 
+
+	 if     ( mystrcmp(p, "jan") ) {arr[i].act_date.m=JAN;}
 	 else if( mystrcmp(p, "feb") ) {arr[i].act_date.m=FEB;}
 	 else if( mystrcmp(p, "mar") ) {arr[i].act_date.m=MAR;}
 	 else if( mystrcmp(p, "apr") ) {arr[i].act_date.m=APR;}
@@ -73,16 +72,17 @@ void char_to_enum2(char *p,int i)
 	 else if( mystrcmp(p, "dec") ) {arr[i].act_date.m=DEC;}
 	 else if( mystrcmp(p, "0"  ) ) {arr[i].act_date.m=NONE;}
 }
-int myatoi(char q[])                   // в функцию передается указатель  
-{  int n,i=0,znak; 
-    while(*(q+i)==' ') i++; 
-    if (!*(q+i)) return 0;                                     // в строке одни пробелы 
-    znak=(*(q+i)=='-')? -1: 1; 
-    if (*(q+i)=='+' || *(q+i)=='-') i++;               // пропуск позиции знака 
-    for(n=0; *(q+i)>'0' && *(q+i)<='9'; i++)  // выбор цифр числа из строки 
-    n=10*n+(*(q+i)-'0'); 
-    return znak*n;                                               // возврат signed int 
-} 
+int myatoi(char q[])                   // в функцию передается указатель
+{
+    int n,i=0,znak;
+    while(*(q+i)==' ') i++;
+    if (!*(q+i)) return 0;                                     // в строке одни пробелы
+    znak=(*(q+i)=='-')? -1: 1;
+    if (*(q+i)=='+' || *(q+i)=='-') i++;               // пропуск позиции знака
+    for(n=0; *(q+i)>'0' && *(q+i)<='9'; i++)  // выбор цифр числа из строки
+    n=10*n+(*(q+i)-'0');
+    return znak*n;                                               // возврат signed int
+}
 void set_name()
 {
     int i;
@@ -90,7 +90,7 @@ void set_name()
     for(i = 0; i < 50; i++)
     {
 		p=(char*)malloc(30);
-		printf("Введите название фирмы №%d:",i+1);
+		printf("Please enter company name Numb.%d:",i+1);
         gets(p);
         if (mystrcmp(p,"end")) break;
 		else mystrcpy(arr[i].name,p);
@@ -102,54 +102,51 @@ void set_tax()
 	int i;
     for(i = 0; i < 50 && arr[i].name[1]; i++)
     {
-		printf("Введите размер налогооблажения для фирмы %s:",arr[i].name);
+		printf("Please enter amount of tax to the firm %s:",arr[i].name);
 		fflush(stdin);
 		scanf("%s",arr[i].tax);
 	}
 }
 void set_dates()
 {
-	{
+
 	int i;
     for(i = 0; i < 50 && arr[i].name[1]; i++)
-		{
-			char *p;
-			p=(char*)calloc(4,1);
-			printf("Введите дату посследнего срока внесения налога (или '0' по всем параметрам, если не был внесён) для фирмы %s\n",arr[i].name);
-			printf("DD МMM YYYY:");
-			fflush(stdin); 
-			scanf("%d%s%d",&arr[i].last_date.d,p,&arr[i].last_date.y);
-			char_to_enum1(p,i);
-			free(p);
-			p=(char*)malloc(4);
-			printf("Введите дату фактического внесения налога (или '0' по всем параметрам, если не был внесён) для фирмы %s\n",arr[i].name);
-			printf("DD МMM YYYY:");
-			fflush(stdin); 
-			scanf("%d%s%d",&arr[i].act_date.d,p,&arr[i].act_date.y);
-			char_to_enum2(p,i);
-			free(p);
-		}
-	}
+    {
+        char *p;
+        p=(char*)calloc(4,1);
+        printf("Please enter the date of the deadline for tax payment (or '0 'in all respects, if not been made) for the firm %s\n",arr[i].name);
+		printf("DD MMM YYYY:");
+		fflush(stdin);
+		scanf("%d%s%d",&arr[i].last_date.d,p,&arr[i].last_date.y);
+		char_to_enum1(p,i);
+		free(p);
+		p=(char*)malloc(4);
+		printf("Please enter date of the actual tax payment (or '0 'in all respects, if not been made) for the firm %s\n",arr[i].name);
+		printf("DD MMM YYYY:");
+		fflush(stdin);
+		scanf("%d%s%d",&arr[i].act_date.d,p,&arr[i].act_date.y);
+		char_to_enum2(p,i);
+		free(p);
+    }
 }
 void display_firms_data ()
 {
     int i;
     for(i = 0; i < 50 && arr[i].name[1]; i++)
 	{
-		printf("Информация о фирме %s:\n",arr[i].name);
-		printf("Размер налогооблажения - %s\n",arr[i].tax);
-		printf("Дата последнего срока внесения налога - %d/%s/%d\n",arr[i].last_date.d,MOUNTH[arr[i].last_date.m],arr[i].last_date.y);
-		printf("Дата фактического внесения налога - %d/%s/%d\n",arr[i].act_date.d,MOUNTH[arr[i].act_date.m],arr[i].act_date.y);
+		printf("Information about the firm %s:\n",arr[i].name);
+		printf("The value of tax - %s\n",arr[i].tax);
+		printf("Date of tax payment deadline - %d/%s/%d\n",arr[i].last_date.d,MONTH[arr[i].last_date.m],arr[i].last_date.y);
+		printf("Date of the actual tax payment - %d/%s/%d\n",arr[i].act_date.d,MONTH[arr[i].act_date.m],arr[i].act_date.y);
 	}
 }
 int main()
 {
-	setlocale(LC_ALL,"russian");
     set_name();
 	set_tax();
 	set_dates();
 	display_firms_data();
-
     getch ();
     return 0;
 
