@@ -82,7 +82,17 @@ int myatoi(char q[])                   // в функцию передается указатель
     for(n=0; *(q+i)>'0' && *(q+i)<='9'; i++)  // выбор цифр числа из строки
     n=10*n+(*(q+i)-'0');
     return znak*n;                                               // возврат signed int
-}
+}
+int debt(int i)
+{
+    if(arr[i].act_date.y>arr[i].last_date.y) return 1;
+    else if(arr[i].act_date.y<arr[i].last_date.y) return 0;
+    if(arr[i].act_date.m>arr[i].last_date.m) return 1;
+    else if(arr[i].act_date.m<arr[i].last_date.m) return 0;
+    if(arr[i].act_date.d>arr[i].last_date.d) return 1;
+    else if(arr[i].act_date.d<arr[i].last_date.d) return 0;
+    return 0;
+}
 void set_name()
 {
     int i;
@@ -143,10 +153,13 @@ void display_firms_data ()
 }
 int main()
 {
+    int i;
     set_name();
 	set_tax();
 	set_dates();
 	display_firms_data();
+	for(i=0;i<50;i++)
+	if(debt(i)) printf("%s has a debt to pay tax value %s$",arr[i].name,arr[i].tax);
     getch ();
     return 0;
 
