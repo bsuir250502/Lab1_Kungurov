@@ -7,8 +7,8 @@ char MONTH[13][5]={"JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","
 struct date
 {
     int d;
-	month m;
-	int y;
+    month m;
+    int y;
 };
 struct firm
 {
@@ -31,46 +31,46 @@ int mystrcmp(char *p,char *q)
 }
 void mystrcpy(char *p,char *q)
 {
-	int i=0;
-	while(q[i])
-	{
-		p[i]=q[i];
-		i++;
-	}
+    int i=0;
+    while(q[i])
+    {
+        p[i]=q[i];
+        i++;
+    }
 }
 void char_to_enum1(char *p,int i)
 {
 
-	 if     ( mystrcmp(p, "jan") ) {arr[i].last_date.m=JAN;}
-	 else if( mystrcmp(p, "feb") ) {arr[i].last_date.m=FEB;}
-	 else if( mystrcmp(p, "mar") ) {arr[i].last_date.m=MAR;}
-	 else if( mystrcmp(p, "apr") ) {arr[i].last_date.m=APR;}
-	 else if( mystrcmp(p, "may") ) {arr[i].last_date.m=MAY;}
-	 else if( mystrcmp(p, "jun") ) {arr[i].last_date.m=JUN;}
-	 else if( mystrcmp(p, "jul") ) {arr[i].last_date.m=JUL;}
-	 else if( mystrcmp(p, "aug") ) {arr[i].last_date.m=AUG;}
-	 else if( mystrcmp(p, "sep") ) {arr[i].last_date.m=SEP;}
-	 else if( mystrcmp(p, "okt") ) {arr[i].last_date.m=OCT;}
-	 else if( mystrcmp(p, "nov") ) {arr[i].last_date.m=NOV;}
-	 else if( mystrcmp(p, "dec") ) {arr[i].last_date.m=DEC;}
-	 else if( mystrcmp(p, "0"  ) ) {arr[i].act_date.m=NONE;}
+    if     ( mystrcmp(p, "jan") ) {arr[i].last_date.m=JAN;}
+    else if( mystrcmp(p, "feb") ) {arr[i].last_date.m=FEB;}
+    else if( mystrcmp(p, "mar") ) {arr[i].last_date.m=MAR;}
+    else if( mystrcmp(p, "apr") ) {arr[i].last_date.m=APR;}
+    else if( mystrcmp(p, "may") ) {arr[i].last_date.m=MAY;}
+    else if( mystrcmp(p, "jun") ) {arr[i].last_date.m=JUN;}
+    else if( mystrcmp(p, "jul") ) {arr[i].last_date.m=JUL;}
+    else if( mystrcmp(p, "aug") ) {arr[i].last_date.m=AUG;}
+    else if( mystrcmp(p, "sep") ) {arr[i].last_date.m=SEP;}
+    else if( mystrcmp(p, "okt") ) {arr[i].last_date.m=OCT;}
+    else if( mystrcmp(p, "nov") ) {arr[i].last_date.m=NOV;}
+    else if( mystrcmp(p, "dec") ) {arr[i].last_date.m=DEC;}
+    else if( mystrcmp(p, "0"  ) ) {arr[i].act_date.m=NONE;}
 }
 void char_to_enum2(char *p,int i)
 {
 
-	 if     ( mystrcmp(p, "jan") ) {arr[i].act_date.m=JAN;}
-	 else if( mystrcmp(p, "feb") ) {arr[i].act_date.m=FEB;}
-	 else if( mystrcmp(p, "mar") ) {arr[i].act_date.m=MAR;}
-	 else if( mystrcmp(p, "apr") ) {arr[i].act_date.m=APR;}
-	 else if( mystrcmp(p, "may") ) {arr[i].act_date.m=MAY;}
-	 else if( mystrcmp(p, "jun") ) {arr[i].act_date.m=JUN;}
-	 else if( mystrcmp(p, "jul") ) {arr[i].act_date.m=JUL;}
-	 else if( mystrcmp(p, "aug") ) {arr[i].act_date.m=AUG;}
-	 else if( mystrcmp(p, "sep") ) {arr[i].act_date.m=SEP;}
-	 else if( mystrcmp(p, "okt") ) {arr[i].act_date.m=OCT;}
-	 else if( mystrcmp(p, "nov") ) {arr[i].act_date.m=NOV;}
-	 else if( mystrcmp(p, "dec") ) {arr[i].act_date.m=DEC;}
-	 else if( mystrcmp(p, "0"  ) ) {arr[i].act_date.m=NONE;}
+    if     ( mystrcmp(p, "jan") ) {arr[i].act_date.m=JAN;}
+    else if( mystrcmp(p, "feb") ) {arr[i].act_date.m=FEB;}
+    else if( mystrcmp(p, "mar") ) {arr[i].act_date.m=MAR;}
+    else if( mystrcmp(p, "apr") ) {arr[i].act_date.m=APR;}
+    else if( mystrcmp(p, "may") ) {arr[i].act_date.m=MAY;}
+    else if( mystrcmp(p, "jun") ) {arr[i].act_date.m=JUN;}
+    else if( mystrcmp(p, "jul") ) {arr[i].act_date.m=JUL;}
+    else if( mystrcmp(p, "aug") ) {arr[i].act_date.m=AUG;}
+    else if( mystrcmp(p, "sep") ) {arr[i].act_date.m=SEP;}
+    else if( mystrcmp(p, "okt") ) {arr[i].act_date.m=OCT;}
+    else if( mystrcmp(p, "nov") ) {arr[i].act_date.m=NOV;}
+    else if( mystrcmp(p, "dec") ) {arr[i].act_date.m=DEC;}
+    else if( mystrcmp(p, "0"  ) ) {arr[i].act_date.m=NONE;}
 }
 int myatoi(char q[])                   // в функцию передается указатель
 {
@@ -99,67 +99,67 @@ void set_name()
     char *p;
     for(i = 0; i < 50; i++)
     {
-		p=(char*)malloc(30);
-		printf("Please enter company name Numb.%d:",i+1);
+        p=(char*)malloc(30);
+	printf("Please enter company name Numb.%d:",i+1);
         gets(p);
         if (mystrcmp(p,"end")) break;
-		else mystrcpy(arr[i].name,p);
-		free(p);
+	else mystrcpy(arr[i].name,p);
+	free(p);
     }
 }
 void set_tax()
 {
-	int i;
+    int i;
     for(i = 0; i < 50 && arr[i].name[1]; i++)
     {
-		printf("Please enter amount of tax to the firm %s:",arr[i].name);
-		fflush(stdin);
-		scanf("%s",arr[i].tax);
-	}
+        printf("Please enter amount of tax to the firm %s:",arr[i].name);
+        fflush(stdin);
+        scanf("%s",arr[i].tax);
+    }
 }
 void set_dates()
 {
 
-	int i;
+    int i;
     for(i = 0; i < 50 && arr[i].name[1]; i++)
     {
         char *p;
         p=(char*)calloc(4,1);
         printf("Please enter the date of the deadline for tax payment (or '0 'in all respects, if not been made) for the firm %s\n",arr[i].name);
-		printf("DD MMM YYYY:");
-		fflush(stdin);
-		scanf("%d%s%d",&arr[i].last_date.d,p,&arr[i].last_date.y);
-		char_to_enum1(p,i);
-		free(p);
-		p=(char*)malloc(4);
-		printf("Please enter date of the actual tax payment (or '0 'in all respects, if not been made) for the firm %s\n",arr[i].name);
-		printf("DD MMM YYYY:");
-		fflush(stdin);
-		scanf("%d%s%d",&arr[i].act_date.d,p,&arr[i].act_date.y);
-		char_to_enum2(p,i);
-		free(p);
+        printf("DD MMM YYYY:");
+	fflush(stdin);
+	scanf("%d%s%d",&arr[i].last_date.d,p,&arr[i].last_date.y);
+	char_to_enum1(p,i);
+	free(p);
+	p=(char*)malloc(4);
+	printf("Please enter date of the actual tax payment (or '0 'in all respects, if not been made) for the firm %s\n",arr[i].name);
+	printf("DD MMM YYYY:");
+	fflush(stdin);
+	scanf("%d%s%d",&arr[i].act_date.d,p,&arr[i].act_date.y);
+	char_to_enum2(p,i);
+	free(p);
     }
 }
 void display_firms_data ()
 {
     int i;
     for(i = 0; i < 50 && arr[i].name[1]; i++)
-	{
-		printf("Information about the firm %s:\n",arr[i].name);
-		printf("The value of tax - %s\n",arr[i].tax);
-		printf("Date of tax payment deadline - %d/%s/%d\n",arr[i].last_date.d,MONTH[arr[i].last_date.m],arr[i].last_date.y);
-		printf("Date of the actual tax payment - %d/%s/%d\n",arr[i].act_date.d,MONTH[arr[i].act_date.m],arr[i].act_date.y);
-	}
+    {
+        printf("Information about the firm %s:\n",arr[i].name);
+	printf("The value of tax - %s\n",arr[i].tax);
+	printf("Date of tax payment deadline - %d/%s/%d\n",arr[i].last_date.d,MONTH[arr[i].last_date.m],arr[i].last_date.y);
+	printf("Date of the actual tax payment - %d/%s/%d\n",arr[i].act_date.d,MONTH[arr[i].act_date.m],arr[i].act_date.y);
+    }
 }
 int main()
 {
     int i;
     set_name();
-	set_tax();
-	set_dates();
-	display_firms_data();
-	for(i=0;i<50;i++)
-	if(debt(i)) printf("%s has a debt to pay tax value %s$",arr[i].name,arr[i].tax);
+    set_tax();
+    set_dates();
+    //display_firms_data();
+    for(i=0;i<50;i++)
+    if(debt(i)) printf("%s has a debt to pay tax value %s$",arr[i].name,arr[i].tax);
     getch ();
     return 0;
 
