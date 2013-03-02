@@ -2,11 +2,11 @@
 #include<Windows.h>
 #include<malloc.h>
 // VARIANT 5
-typedef enum {JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEP,OCT,NOV,DEC,NONE} month;
+enum month {JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEP,OCT,NOV,DEC,NONE};
 struct date
 {
     int d;
-    month m;
+    enum month m;
     int y;
 };
 struct firm
@@ -39,7 +39,7 @@ void mystrcpy(char *p,char *q)
     }
     p[i]='\0';
 }
-month char_to_enum1(char *p)
+enum month char_to_enum1(char *p)
 {
     if     ( mystrcmp(p, "jan") ) {return JAN;}
     else if( mystrcmp(p, "feb") ) {return FEB;}
