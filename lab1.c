@@ -55,16 +55,16 @@ month char_to_enum1(char *p)
     else if( mystrcmp(p, "dec") ) {return DEC;}
     else if( mystrcmp(p, "0"  ) ) {return NONE;}
 }
-int myatoi(char q[])                   // в функцию передается указатель
+int myatoi(char q[])
 {
     int n,i=0,znak;
     while(*(q+i)==' ') i++;
-    if (!*(q+i)) return 0;                                     // в строке одни пробелы
+    if (!*(q+i)) return 0;
     znak=(*(q+i)=='-')? -1: 1;
-    if (*(q+i)=='+' || *(q+i)=='-') i++;               // пропуск позиции знака
-    for(n=0; *(q+i)>='0' && *(q+i)<='9'; i++)  // выбор цифр числа из строки
+    if (*(q+i)=='+' || *(q+i)=='-') i++;
+    for(n=0; *(q+i)>='0' && *(q+i)<='9'; i++)
     n=10*n+(*(q+i)-'0');
-    return znak*n;                                               // возврат signed int
+    return znak*n;
 }
 int debt(int i,struct firm arr[50])
 {
