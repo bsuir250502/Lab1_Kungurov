@@ -1,21 +1,21 @@
 #include<stdio.h>
-#include<conio.h>
+#include<Windows.h>
 #include<malloc.h>
 // VARIANT 5
 typedef enum {JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEP,OCT,NOV,DEC,NONE} month;
 struct date
-    {
-        int d;
-        month m;
-        int y;
-    };
-    struct firm
-    {
-        char name[30];
-        char tax[7];
-        struct date last_date;
-        struct date act_date;
-    };
+{
+    int d;
+    month m;
+    int y;
+};
+struct firm
+{
+    char name[30];
+    char tax[7];
+    struct date last_date;
+    struct date act_date;
+};
 
 int mystrcmp(char *p,char *q)
 {
@@ -37,7 +37,7 @@ void mystrcpy(char *p,char *q)
         p[i]=q[i];
         i++;
     }
-	p[i]='\0';
+    p[i]='\0';
 }
 month char_to_enum1(char *p)
 {
@@ -111,16 +111,16 @@ void set_dates(struct firm arr[50])
         printf("Please enter the date of the deadline for tax payment (or '0 'in all respects, if not been made) for the firm %s\n",arr[i].name);
         printf("DD MMM YYYY:");
         fflush(stdin);
-	scanf("%d%s%d",&arr[i].last_date.d,p,&arr[i].last_date.y);
-	arr[i].last_date.m=char_to_enum1(p);
-	free(p);
-	p=(char*)malloc(4);
-	printf("Please enter date of the actual tax payment (or '0 'in all respects, if not been made) for the firm %s\n",arr[i].name);
-	printf("DD MMM YYYY:");
-	fflush(stdin);
-	scanf("%d%s%d",&arr[i].act_date.d,p,&arr[i].act_date.y);
-	arr[i].act_date.m=char_to_enum1(p);
-	free(p);
+        scanf("%d%s%d",&arr[i].last_date.d,p,&arr[i].last_date.y);
+        arr[i].last_date.m=char_to_enum1(p);
+        free(p);
+        p=(char*)malloc(4);
+        printf("Please enter date of the actual tax payment (or '0 'in all respects, if not been made) for the firm %s\n",arr[i].name);
+        printf("DD MMM YYYY:");
+        fflush(stdin);
+        scanf("%d%s%d",&arr[i].act_date.d,p,&arr[i].act_date.y);
+        arr[i].act_date.m=char_to_enum1(p);
+        free(p);
     }
 }
 void display_firms_data (struct firm arr[50], char MONTH[13][5])
@@ -130,13 +130,13 @@ void display_firms_data (struct firm arr[50], char MONTH[13][5])
     {
         printf("Information about the firm %s:\n",arr[i].name);
         printf("The value of tax - %s\n",arr[i].tax);
-	printf("Date of tax payment deadline - %d/%s/%d\n",arr[i].last_date.d,MONTH[arr[i].last_date.m],arr[i].last_date.y);
-	printf("Date of the actual tax payment - %d/%s/%d\n",arr[i].act_date.d,MONTH[arr[i].act_date.m],arr[i].act_date.y);
+        printf("Date of tax payment deadline - %d/%s/%d\n",arr[i].last_date.d,MONTH[arr[i].last_date.m],arr[i].last_date.y);
+        printf("Date of the actual tax payment - %d/%s/%d\n",arr[i].act_date.d,MONTH[arr[i].act_date.m],arr[i].act_date.y);
     }
 }
 int main()
 {
-	char MONTH[13][5]={"JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC","NONE"};
+    char MONTH[13][5]={"JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC","NONE"};
     struct firm arr[50];
     int i,j;
     struct firm tmp;
@@ -147,7 +147,7 @@ int main()
     for(i=0;i<49 && arr[i].name[0];i++)
     {
         for(j=i+1;j<50 && arr[j].name[0];j++)
-	    {
+        {
             if (myatoi(arr[i].tax)<myatoi(arr[j].tax))
             {
                 tmp=arr[i];
@@ -163,6 +163,6 @@ int main()
     //}
     //if(debt(i)) printf("%s has a debt to pay tax value %s$",arr[i].name,arr[i].tax);
     display_firms_data(arr,&MONTH);
-    getch();
+    system("pause");
     return 0;
 }
