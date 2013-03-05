@@ -1,5 +1,6 @@
 #include<stdio.h>
-#include<Windows.h>
+#include<stdlib.h>
+#include "mystdlib.h"
 #include<malloc.h>
 // VARIANT 5
 enum month {JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEP,OCT,NOV,DEC,NONE};
@@ -16,29 +17,6 @@ struct firm
     struct date last_date;
     struct date act_date;
 };
-
-int mystrcmp(char *str1,char *str2)
-{
-    int i=0,equal_word=0;
-    while(str1[i] && str2[i])
-    {
-        if (str1[i]==str2[i]) equal_word=1;
-        else return 0;
-        if ((!str1[i+1] && str2[i+1]) || (str1[i+1] && !str2[i+1])) equal_word = 0;
-        i++;
-    }
-    return equal_word;
-}
-void mystrcpy(char *str1,char *str2)
-{
-    int i=0;
-    while(str2[i])
-    {
-        str1[i]=str2[i];
-        i++;
-    }
-    str1[i]='\0';
-}
 enum month char_to_enum1(char *str)
 {
     if     ( mystrcmp(str, "jan") ) {return JAN;}
@@ -55,18 +33,7 @@ enum month char_to_enum1(char *str)
     else if( mystrcmp(str, "dec") ) {return DEC;}
     else if( mystrcmp(str, "0"  ) ) {return NONE;}
 }
-int myatoi(char str[])
-{
-    int n,i=0,sign;
-    while(*(str+i)==' ') i++;
-    if (!*(str+i)) return 0;
-    sign=(*(str+i)=='-')? -1: 1;
-    if (*(str+i)=='+' || *(str+i)=='-') i++;
-    for(n=0; *(str+i)>='0' && *(str+i)<='9'; i++)
-    n=10*n+(*(str+i)-'0');
-    return sign*n;
-}
-int debt(int i,struct firm arr[50])
+int check_debt(int i,struct firm arr[50])
 {
     if(arr[i].act_date.y>arr[i].last_date.y) return 1;
     else if(arr[i].act_date.y<arr[i].last_date.y) return 0;
@@ -78,13 +45,13 @@ int debt(int i,struct firm arr[50])
 }
 void set_name(struct firm arr[50])
 {
-    int i;
-    char *str;
+    int i,j=0;
+	char *str;
     for(i = 0; i < 50; i++)
     {
         str=(char*)calloc(30,1);
         printf("Please enter company name Numb.%d:",i+1);
-        gets(str);
+        fgets(str,30,stdin);
         if (mystrcmp(str,"end")) {arr[i].name[0]=NULL; break;}
         else mystrcpy(arr[i].name,str);
         free(str);
@@ -123,20 +90,20 @@ void set_dates(struct firm arr[50])
         free(str);
     }
 }
-void display_firms_data (struct firm arr[50], char MONTH[13][5])
+void display_firms_data (struct firm arr[50], char month_names[13][5])
 {
     int i;
     for(i = 0; i < 50 && arr[i].name[0]; i++)
     {
         printf("Information about the firm %s:\n",arr[i].name);
         printf("The value of tax - %s\n",arr[i].tax);
-        printf("Date of tax payment deadline - %d/%s/%d\n",arr[i].last_date.d,MONTH[arr[i].last_date.m],arr[i].last_date.y);
-        printf("Date of the actual tax payment - %d/%s/%d\n",arr[i].act_date.d,MONTH[arr[i].act_date.m],arr[i].act_date.y);
+        printf("Date of tax payment deadline - %d/%s/%d\n",arr[i].last_date.d,month_names[arr[i].last_date.m],arr[i].last_date.y);
+        printf("Date of the actual tax payment - %d/%s/%d\n",arr[i].act_date.d,month_names[arr[i].act_date.m],arr[i].act_date.y);
     }
 }
 int main()
 {
-    char MONTH[13][5]={"JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC","NONE"};
+    char month_names[13][5]={"JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC","NONE"};
     struct firm arr[50];
     int i,j;
     struct firm tmp;
@@ -158,11 +125,10 @@ int main()
     }
     //for(i=0;i<49 && j<=5;i++)
     //{
-    //    if (dept(i,&arr)) j++;
+    //    if (check_debt(i,&arr)) j++;
     //    else
     //}
-    //if(debt(i)) printf("%s has a debt to pay tax value %s$",arr[i].name,arr[i].tax);
-    display_firms_data(arr,&MONTH);
-    system("pause");
+    //if(check_debt(i)) printf("%s has a debt to pay tax value %s$",arr[i].name,arr[i].tax);
+    display_firms_data(arr,&month_names);
     return 0;
 }
