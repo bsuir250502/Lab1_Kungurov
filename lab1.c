@@ -17,54 +17,54 @@ struct firm
     struct date act_date;
 };
 
-int mystrcmp(char *p,char *q)
+int mystrcmp(char *str1,char *str2)
 {
-    int i=0,ind=0;
-    while(p[i] && q[i])
+    int i=0,equal_word=0;
+    while(str1[i] && str2[i])
     {
-        if (p[i]==q[i]) ind=1;
+        if (str1[i]==str2[i]) equal_word=1;
         else return 0;
-        if ((!p[i+1] && q[i+1]) || (p[i+1] && !q[i+1])) ind = 0;
+        if ((!str1[i+1] && str2[i+1]) || (str1[i+1] && !str2[i+1])) equal_word = 0;
         i++;
     }
-    return ind;
+    return equal_word;
 }
-void mystrcpy(char *p,char *q)
+void mystrcpy(char *str1,char *str2)
 {
     int i=0;
-    while(q[i])
+    while(str2[i])
     {
-        p[i]=q[i];
+        str1[i]=str2[i];
         i++;
     }
-    p[i]='\0';
+    str1[i]='\0';
 }
-enum month char_to_enum1(char *p)
+enum month char_to_enum1(char *str)
 {
-    if     ( mystrcmp(p, "jan") ) {return JAN;}
-    else if( mystrcmp(p, "feb") ) {return FEB;}
-    else if( mystrcmp(p, "mar") ) {return MAR;}
-    else if( mystrcmp(p, "apr") ) {return APR;}
-    else if( mystrcmp(p, "may") ) {return MAY;}
-    else if( mystrcmp(p, "jun") ) {return JUN;}
-    else if( mystrcmp(p, "jul") ) {return JUL;}
-    else if( mystrcmp(p, "aug") ) {return AUG;}
-    else if( mystrcmp(p, "sep") ) {return SEP;}
-    else if( mystrcmp(p, "oct") ) {return OCT;}
-    else if( mystrcmp(p, "nov") ) {return NOV;}
-    else if( mystrcmp(p, "dec") ) {return DEC;}
-    else if( mystrcmp(p, "0"  ) ) {return NONE;}
+    if     ( mystrcmp(str, "jan") ) {return JAN;}
+    else if( mystrcmp(str, "feb") ) {return FEB;}
+    else if( mystrcmp(str, "mar") ) {return MAR;}
+    else if( mystrcmp(str, "apr") ) {return APR;}
+    else if( mystrcmp(str, "may") ) {return MAY;}
+    else if( mystrcmp(str, "jun") ) {return JUN;}
+    else if( mystrcmp(str, "jul") ) {return JUL;}
+    else if( mystrcmp(str, "aug") ) {return AUG;}
+    else if( mystrcmp(str, "sep") ) {return SEP;}
+    else if( mystrcmp(str, "oct") ) {return OCT;}
+    else if( mystrcmp(str, "nov") ) {return NOV;}
+    else if( mystrcmp(str, "dec") ) {return DEC;}
+    else if( mystrcmp(str, "0"  ) ) {return NONE;}
 }
-int myatoi(char q[])
+int myatoi(char str[])
 {
-    int n,i=0,znak;
-    while(*(q+i)==' ') i++;
-    if (!*(q+i)) return 0;
-    znak=(*(q+i)=='-')? -1: 1;
-    if (*(q+i)=='+' || *(q+i)=='-') i++;
-    for(n=0; *(q+i)>='0' && *(q+i)<='9'; i++)
-    n=10*n+(*(q+i)-'0');
-    return znak*n;
+    int n,i=0,sign;
+    while(*(str+i)==' ') i++;
+    if (!*(str+i)) return 0;
+    sign=(*(str+i)=='-')? -1: 1;
+    if (*(str+i)=='+' || *(str+i)=='-') i++;
+    for(n=0; *(str+i)>='0' && *(str+i)<='9'; i++)
+    n=10*n+(*(str+i)-'0');
+    return sign*n;
 }
 int debt(int i,struct firm arr[50])
 {
@@ -79,15 +79,15 @@ int debt(int i,struct firm arr[50])
 void set_name(struct firm arr[50])
 {
     int i;
-    char *p;
+    char *str;
     for(i = 0; i < 50; i++)
     {
-        p=(char*)calloc(30,1);
+        str=(char*)calloc(30,1);
         printf("Please enter company name Numb.%d:",i+1);
-        gets(p);
-        if (mystrcmp(p,"end")) {arr[i].name[0]=NULL; break;}
-        else mystrcpy(arr[i].name,p);
-        free(p);
+        gets(str);
+        if (mystrcmp(str,"end")) {arr[i].name[0]=NULL; break;}
+        else mystrcpy(arr[i].name,str);
+        free(str);
     }
 }
 void set_tax(struct firm arr[50])
@@ -106,21 +106,21 @@ void set_dates(struct firm arr[50])
     int i;
     for(i = 0; i < 50 && arr[i].name[0]; i++)
     {
-        char *p;
-        p=(char*)calloc(4,1);
+        char *str;
+        str=(char*)calloc(4,1);
         printf("Please enter the date of the deadline for tax payment (or '0 'in all respects, if not been made) for the firm %s\n",arr[i].name);
         printf("DD MMM YYYY:");
         fflush(stdin);
-        scanf("%d%s%d",&arr[i].last_date.d,p,&arr[i].last_date.y);
-        arr[i].last_date.m=char_to_enum1(p);
-        free(p);
-        p=(char*)malloc(4);
+        scanf("%d%s%d",&arr[i].last_date.d,str,&arr[i].last_date.y);
+        arr[i].last_date.m=char_to_enum1(str);
+        free(str);
+        str=(char*)malloc(4);
         printf("Please enter date of the actual tax payment (or '0 'in all respects, if not been made) for the firm %s\n",arr[i].name);
         printf("DD MMM YYYY:");
         fflush(stdin);
-        scanf("%d%s%d",&arr[i].act_date.d,p,&arr[i].act_date.y);
-        arr[i].act_date.m=char_to_enum1(p);
-        free(p);
+        scanf("%d%s%d",&arr[i].act_date.d,str,&arr[i].act_date.y);
+        arr[i].act_date.m=char_to_enum1(str);
+        free(str);
     }
 }
 void display_firms_data (struct firm arr[50], char MONTH[13][5])
