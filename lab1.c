@@ -18,19 +18,19 @@ struct company
 };
 enum month char_to_enum1(char *str)
 {
-    if     ( mystrcmp(str, "jan") ) {return JAN;}
-    else if( mystrcmp(str, "feb") ) {return FEB;}
-    else if( mystrcmp(str, "mar") ) {return MAR;}
-    else if( mystrcmp(str, "apr") ) {return APR;}
-    else if( mystrcmp(str, "may") ) {return MAY;}
-    else if( mystrcmp(str, "jun") ) {return JUN;}
-    else if( mystrcmp(str, "jul") ) {return JUL;}
-    else if( mystrcmp(str, "aug") ) {return AUG;}
-    else if( mystrcmp(str, "sep") ) {return SEP;}
-    else if( mystrcmp(str, "oct") ) {return OCT;}
-    else if( mystrcmp(str, "nov") ) {return NOV;}
-    else if( mystrcmp(str, "dec") ) {return DEC;}
-    else if( mystrcmp(str, "0"  ) ) {return NONE;}
+    if     ( !mystrcmp(str, "jan") ) {return JAN;}
+    else if( !mystrcmp(str, "feb") ) {return FEB;}
+    else if( !mystrcmp(str, "mar") ) {return MAR;}
+    else if( !mystrcmp(str, "apr") ) {return APR;}
+    else if( !mystrcmp(str, "may") ) {return MAY;}
+    else if( !mystrcmp(str, "jun") ) {return JUN;}
+    else if( !mystrcmp(str, "jul") ) {return JUL;}
+    else if( !mystrcmp(str, "aug") ) {return AUG;}
+    else if( !mystrcmp(str, "sep") ) {return SEP;}
+    else if( !mystrcmp(str, "oct") ) {return OCT;}
+    else if( !mystrcmp(str, "nov") ) {return NOV;}
+    else if( !mystrcmp(str, "dec") ) {return DEC;}
+    else if( !mystrcmp(str, "0"  ) ) {return NONE;}
 }
 int check_debt(int i,int monitor_day, int monitor_year, enum month monitor_month, struct company arr[50])
 {
@@ -58,7 +58,7 @@ void set_name(struct company arr[50],FILE *p)
         str=(char*)calloc(30,1);
         printf("Please enter company name Numb.%d:",i+1);
         fscanf(p,"%s",str);
-        if (mystrcmp(str,"end")) {arr[i].name[0]=NULL; break;}
+        if (!mystrcmp(str,"end")) {arr[i].name[0]=NULL; break;}
         else mystrcpy(arr[i].name,str);
         free(str);
     }
@@ -147,6 +147,18 @@ int main()
             arr[substitutive]=tmp;
         }
         n++;
+    }
+    for(j=0; j<n; j++)
+    {
+        for(i=0; i<n-1; i++)
+        {
+            if(mystrcmp(arr[i].name, arr[i+1].name)>0)
+            {
+                tmp = arr[i];
+                arr[i] = arr[i+1];
+                arr[i+1] = tmp;
+            }
+        }
     }
     display_company_data(arr,&month_names);
     return 0;
