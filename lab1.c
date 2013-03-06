@@ -1,5 +1,4 @@
 #include<stdio.h>
-#include<stdlib.h>
 #include "mystdlib.h"
 #include<malloc.h>
 // VARIANT 5
@@ -52,6 +51,9 @@ void set_name(struct firm arr[50])
         str=(char*)calloc(30,1);
         printf("Please enter company name Numb.%d:",i+1);
         fgets(str,30,stdin);
+		while(str[j]) j++;
+        str[j-1]='\0';
+        j=0;
         if (mystrcmp(str,"end")) {arr[i].name[0]=NULL; break;}
         else mystrcpy(arr[i].name,str);
         free(str);
