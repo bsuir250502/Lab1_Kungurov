@@ -1,7 +1,6 @@
 #include<stdio.h>
 #include "mystdlib.h"
 #include<malloc.h>
-#include<conio.h>
 // VARIANT 5
 enum month {JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEP,OCT,NOV,DEC,NONE};
 struct date
@@ -50,34 +49,31 @@ int check_debt(int i,int monitor_day, int monitor_year, enum month monitor_month
         }
     }
 }
-void set_name(struct company arr[50])
+void set_name(struct company arr[50],FILE *p)
 {
     int i,j=0;
-	char *str;
+    char *str;
     for(i = 0; i < 50; i++)
     {
         str=(char*)calloc(30,1);
         printf("Please enter company name Numb.%d:",i+1);
-        fgets(str,30,stdin);
-		while(str[j]) j++;
-        str[j-1]='\0';
-        j=0;
+        fscanf(p,"%s",str);
         if (mystrcmp(str,"end")) {arr[i].name[0]=NULL; break;}
         else mystrcpy(arr[i].name,str);
         free(str);
     }
 }
-void set_tax(struct company arr[50])
+void set_tax(struct company arr[50],FILE *p)
 {
     int i;
     for(i = 0; i < 50 && arr[i].name[0]; i++)
     {
         printf("Please enter amount of tax to the company %s:",arr[i].name);
         fflush(stdin);
-        scanf("%s",arr[i].tax);
+        fscanf(p,"%s",arr[i].tax);
     }
 }
-void set_dates(struct company arr[50])
+void set_dates(struct company arr[50],FILE *p)
 {
 
     int i;
@@ -88,14 +84,14 @@ void set_dates(struct company arr[50])
         printf("Please enter the date of the deadline for tax payment (or '0 'in all respects, if not been made) for the company %s\n",arr[i].name);
         printf("DD MMM YYYY:");
         fflush(stdin);
-        scanf("%d%s%d",&arr[i].last_date.d,str,&arr[i].last_date.y);
+        fscanf(p,"%d%s%d",&arr[i].last_date.d,str,&arr[i].last_date.y);
         arr[i].last_date.m=char_to_enum1(str);
         free(str);
         str=(char*)malloc(4);
         printf("Please enter date of the actual tax payment (or '0 'in all respects, if not been made) for the company %s\n",arr[i].name);
         printf("DD MMM YYYY:");
         fflush(stdin);
-        scanf("%d%s%d",&arr[i].act_date.d,str,&arr[i].act_date.y);
+        fscanf(p,"%d%s%d",&arr[i].act_date.d,str,&arr[i].act_date.y);
         arr[i].act_date.m=char_to_enum1(str);
         free(str);
     }
@@ -103,9 +99,9 @@ void set_dates(struct company arr[50])
 void display_company_data (struct company arr[50], char month_names[13][5])
 {
     int i;
-    for(i = 0; i < 50 && arr[i].name[0]; i++)
+    for(i = 0; i < 5 && arr[i].name[0]; i++)
     {
-        printf("Information about the company %s:\n",arr[i].name);
+		printf("\nNumb.%d\nInformation about the company %s:\n",i+1,arr[i].name);
         printf("The value of tax - %s\n",arr[i].tax);
         printf("Date of tax payment deadline - %d/%s/%d\n",arr[i].last_date.d,month_names[arr[i].last_date.m],arr[i].last_date.y);
         printf("Date of the actual tax payment - %d/%s/%d\n",arr[i].act_date.d,month_names[arr[i].act_date.m],arr[i].act_date.y);
@@ -115,21 +111,16 @@ int main()
 {
     char month_names[13][5]={"JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC","NONE"};
     struct company arr[50];
-    char str;
-    int i,j,n=0,monitor_day,monitor_year,replaceable,substitutive;
+    char *str=(char*)malloc(4);
+    int i,j,n=0,monitor_day=0,monitor_year=0,replaceable=0,substitutive=0;
     enum month monitor_month;
     struct company tmp;
-    /*set_name(arr);
-    set_tax(arr);
-    set_dates(arr);*/
     FILE *p;
-	char *str8;
-	str8=(char*)calloc(1,30);
-	p=fopen("D:\Input.txt","rt");
-	if(!p) puts("GFfdgd");
-	fscanf(p,str8);
-    puts(str8);
-    /*for(i=0;i<49 && arr[i].name[0];i++)
+    p=fopen("d:\\git\\lab1_kungurov\\input.txt","rt");
+    set_name(arr,p);
+    set_tax(arr,p);
+    set_dates(arr,p);
+    for(i=0;i<49 && arr[i].name[0];i++)
     {
         for(j=i+1;j<50 && arr[j].name[0];j++)
         {
@@ -141,24 +132,22 @@ int main()
             }
         }
     }
-    printf("Please enter the date monitor debt")
-    scanf("%d%s%d",monitor_day,str,monitor_year;
+    printf("Please enter the date monitor debt");
+    fscanf(p,"%d%s%d",&monitor_day,str,&monitor_year);
     monitor_month=char_to_enum1(str);
-    //display_company_data();
     while(n<5)
     {
         if(!check_debt(n,monitor_day,monitor_year,monitor_month,arr))
         {
             replaceable=n;
             for(i=n+1;i<30;i++)
-                if(check_debt(i,monitor_day,monitor_year,monitor_month,arr)) substitutive=i;
+				if(check_debt(i,monitor_day,monitor_year,monitor_month,arr)) {substitutive=i; break;}
             tmp=arr[replaceable];
             arr[replaceable]=arr[substitutive];
             arr[substitutive]=tmp;
         }
         n++;
     }
-    display_company_data(arr,&month_names);*/
-	getch();
+    display_company_data(arr,&month_names);
     return 0;
 }
