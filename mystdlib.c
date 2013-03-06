@@ -1,4 +1,4 @@
-#include "mystdlib.h"
+
 #define MYSTDLIB_H_INCLUDED
 
 int mystrcmp(char *str1,char *str2)
@@ -15,7 +15,7 @@ int mystrcmp(char *str1,char *str2)
         i++;
     }
     return equal_word;
-};
+}
 void mystrcpy(char *str1,char *str2)
 {
     int i=0;
@@ -25,7 +25,7 @@ void mystrcpy(char *str1,char *str2)
         i++;
     }
     str1[i]='\0';
-};
+}
 int myatoi(char str[])
 {
     int n,i=0,sign;
@@ -36,6 +36,4 @@ int myatoi(char str[])
     for(n=0; *(str+i)>='0' && *(str+i)<='9'; i++)
     n=10*n+(*(str+i)-'0');
     return sign*n;
-};
-
-#endif
+}
