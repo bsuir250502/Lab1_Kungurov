@@ -101,7 +101,7 @@ void display_company_data (struct company arr[50], char month_names[13][5])
     int i;
     for(i = 0; i < 5 && arr[i].name[0]; i++)
     {
-		printf("\nNumb.%d\nInformation about the company %s:\n",i+1,arr[i].name);
+        printf("\nNumb.%d\nInformation about the company %s:\n",i+1,arr[i].name);
         printf("The value of tax - %s\n",arr[i].tax);
         printf("Date of tax payment deadline - %d/%s/%d\n",arr[i].last_date.d,month_names[arr[i].last_date.m],arr[i].last_date.y);
         printf("Date of the actual tax payment - %d/%s/%d\n",arr[i].act_date.d,month_names[arr[i].act_date.m],arr[i].act_date.y);
@@ -141,7 +141,7 @@ int main()
         {
             replaceable=n;
             for(i=n+1;i<30;i++)
-				if(check_debt(i,monitor_day,monitor_year,monitor_month,arr)) {substitutive=i; break;}
+            if(check_debt(i,monitor_day,monitor_year,monitor_month,arr)) {substitutive=i; break;}
             tmp=arr[replaceable];
             arr[replaceable]=arr[substitutive];
             arr[substitutive]=tmp;
