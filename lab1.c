@@ -53,9 +53,10 @@ void set_name(struct company arr[50])
     for (i = 0; i < 50; i++) {
         str = (char *) calloc(30, 1);
         printf("Please enter company name Numb.%d:", i + 1);
-        scanf("%s", str);
+        fgets(str, 30, stdin);
+        *(str + strlen(str) - 1) = '\0';
         if (!strcmp(str, "end")) {
-            arr[i].name[0] = NULL;
+            arr[i].name[0] = '0';
             break;
         } else
             strcpy(arr[i].name, str);
@@ -66,10 +67,9 @@ void set_name(struct company arr[50])
 void set_tax(struct company arr[50])
 {
     int i;
-    for (i = 0; i < 50 && arr[i].name[0]; i++) {
+    for (i = 0; i < 50 && arr[i].name[0] != '0'; i++) {
         printf("Please enter amount of tax to the company %s:",
                arr[i].name);
-        fflush(stdin);
         fgets(arr[i].tax, 7, stdin);
     }
 }
@@ -86,14 +86,16 @@ void set_dates(struct company arr[50])
             ("Please enter the date of the deadline for tax payment for the company %s\n",
              arr[i].name);
         printf("DD MMM YYYY:");
+        fgets(str, 15, stdin);
         strptime(str, "%d%B%y", &tm);
         arr[i].last_date = mktime(&tm);
         free(str);
-        str = (char *) malloc(4);
+        str = (char *) malloc(15);
         printf
             ("Please enter date of the actual tax payment for the company %s\n",
              arr[i].name);
         printf("DD MMM YYYY:");
+        fgets(str, 15, stdin);
         strptime(str, "%d%B%y", &tm);
         arr[i].act_date = mktime(&tm);
         free(str);
