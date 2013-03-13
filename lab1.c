@@ -73,7 +73,6 @@ void set_dates(struct company *arr)
         while (1) {
 
             my_gets(input_buffer, input_buffer_length);
-            puts(input_buffer);
             if (*strptime(input_buffer, "%d %b %Y", &tm)) {
                 printf("Enter correct date");
             } else {
@@ -136,7 +135,7 @@ int main(void)
             }
         }
     }
-    printf("Please enter the date monitor debt");
+    printf("Please enter the date monitor debt: ");
     my_gets(input_buffer, input_buffer_length);
     strptime(input_buffer, "%d %B %Y", &tm);
     monitor_date = mktime(&tm);
