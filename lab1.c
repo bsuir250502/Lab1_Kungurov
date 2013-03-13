@@ -25,7 +25,7 @@ return buf;
 void check_debt(int i, struct company *arr, time_t monitor_date)
 {
     if (arr[i].is_debt == 1) {
-    return}
+    return;}
     if (arr[i].last_date > monitor_date) {
         arr[i].is_debt = 0;
         return;
@@ -143,7 +143,7 @@ int main(void)
         }
     }
     printf("Please enter the date monitor debt");
-    my_gets(input_buffer, input_buffer_length, stdin);
+    my_gets(input_buffer, input_buffer_length);
     strptime(input_buffer, "%d %B %Y", &tm);
     monitor_date = mktime(&tm);
     for (i = 0; i < max_number_of_companies && arr[i].name[0]; i++) {
