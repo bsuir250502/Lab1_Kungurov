@@ -3,7 +3,6 @@
 #include <string.h>
 #include <time.h>
 #include <malloc.h>
-// VARIANT 5
 struct company {
     char name[30];
     char tax[7];
@@ -86,8 +85,13 @@ void set_dates(struct company arr[50])
             ("Please enter the date of the deadline for tax payment for the company %s\n",
              arr[i].name);
         printf("DD MMM YYYY:");
-        fgets(str, 15, stdin);
-        strptime(str, "%d%B%y", &tm);
+        while (1) {
+            fgets(str, 15, stdin);
+            if (strptime(str, "%d %B %y", &tm))
+                printf("Enter correct date");
+            else
+                break;
+        }
         arr[i].last_date = mktime(&tm);
         free(str);
         str = (char *) malloc(15);
@@ -95,8 +99,13 @@ void set_dates(struct company arr[50])
             ("Please enter date of the actual tax payment for the company %s\n",
              arr[i].name);
         printf("DD MMM YYYY:");
-        fgets(str, 15, stdin);
-        strptime(str, "%d%B%y", &tm);
+        while (1) {
+            fgets(str, 15, stdin);
+            if (strptime(str, "%d %B %y", &tm))
+                printf("Enter correct date");
+            else
+                break;
+        }
         arr[i].act_date = mktime(&tm);
         free(str);
     }
@@ -132,7 +141,7 @@ int main(void)
     }
     printf("Please enter the date monitor debt");
     fgets(str, 15, stdin);
-    strptime(str, "%d%B%y", &tm);
+    strptime(str, "%d %B %y", &tm);
     monitor_date = mktime(&tm);
     while (n < 5) {
         if (!check_debt(n, arr, monitor_date)) {
