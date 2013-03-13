@@ -68,6 +68,7 @@ void set_dates(struct company *arr)
         while (1) {
 
             fgets(input_buffer, input_buffer_length, stdin);
+            puts(input_buffer);
             *(input_buffer + strlen(input_buffer) - 1) = '\0';
             if (*strptime(input_buffer, "%d %b %y", &tm))
                 printf("Enter correct date");
@@ -75,6 +76,7 @@ void set_dates(struct company *arr)
                 break;
         }
         arr[i].last_date = mktime(&tm);
+		puts(ctime(&arr[i].last_date));
         free(input_buffer);
         input_buffer = (char *) calloc(input_buffer_length, sizeof(char));
         printf
@@ -97,6 +99,7 @@ void set_dates(struct company *arr)
             }
         }
         arr[i].act_date = mktime(&tm);
+        puts(ctime(&arr[i].act_date));
         free(input_buffer);
     }
 }
