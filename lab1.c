@@ -42,8 +42,9 @@ void set_name(struct company *arr)
         if (!strcmp(input_buffer, "end")) {
             arr[i].name[0] = '\0';
             break;
-        } else{ 
-            strcpy(arr[i].name, input_buffer);}
+        } else {
+            strcpy(arr[i].name, input_buffer);
+        }
         free(input_buffer);
     }
 }
@@ -79,6 +80,7 @@ void set_dates(struct company *arr)
                 break;
             }
         }
+        puts(asctime(&tm));
         arr[i].last_date = mktime(&tm);
         free(input_buffer);
         input_buffer = (char *) calloc(input_buffer_length, sizeof(char));
@@ -102,6 +104,7 @@ void set_dates(struct company *arr)
                 }
             }
         }
+        puts(asctime(&tm));
         arr[i].act_date = mktime(&tm);
         free(input_buffer);
     }
@@ -138,6 +141,7 @@ int main(void)
     printf("Please enter the date monitor debt: ");
     my_gets(input_buffer, input_buffer_length);
     strptime(input_buffer, "%d %B %Y", &tm);
+    puts(asctime(&tm));
     monitor_date = mktime(&tm);
     for (i = 0; i < max_number_of_companies && arr[i].name[0]; i++) {
         check_debt(i, arr, monitor_date);
