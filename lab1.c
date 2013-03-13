@@ -140,7 +140,7 @@ int main(void)
     while (n < 5) {
         if (!arr[i].is_debt) {
             replaceable = n;
-            for (i = n + 1; i < 50; i++)
+            for (i = n + 1; i < max_number_of_companies; i++)
                 if (arr[i].is_debt) {
                     substitutive = i;
                     break;
