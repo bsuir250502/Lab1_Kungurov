@@ -4,6 +4,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
-char* my_gets(char *buf, size_t buf_size);
+char *my_gets(char *buf, size_t buf_size);
 
 #endif                          // MYSTDLIB_H_INCLUDED

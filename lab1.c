@@ -20,7 +20,8 @@ struct company {
 void check_debt(int i, struct company *arr, time_t monitor_date)
 {
     if (arr[i].is_debt == 1) {
-    return;}
+        return;
+    }
     if (arr[i].last_date > monitor_date) {
         arr[i].is_debt = 0;
         return;
