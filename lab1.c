@@ -13,7 +13,7 @@ struct company {
     int is_debt;
 
 };
-void check_debt(int i, struct company arr[max_number_of_companies], time_t monitor_date)
+void check_debt(int i, struct company *arr, time_t monitor_date)
 {
     if (arr[i].is_debt == 1)
         return;
@@ -25,12 +25,12 @@ void check_debt(int i, struct company arr[max_number_of_companies], time_t monit
 }
 
 
-void set_name(struct company arr[max_number_of_companies])
+void set_name(struct company *arr)
 {
     int i;
     char *input_buffer;
     for (i = 0; i < max_number_of_companies; i++) {
-        input_buffer = (char *) calloc(input_buffer_length, 1);
+        input_buffer = (char *) calloc(input_buffer_length, sizeof(char));
         printf("Please enter company name Numb.%d:", i + 1);
         fgets(input_buffer, input_buffer_length, stdin);
         *(input_buffer + strlen(input_buffer) - 1) = '\0';
@@ -43,7 +43,7 @@ void set_name(struct company arr[max_number_of_companies])
     }
 }
 
-void set_tax(struct company arr[max_number_of_companies])
+void set_tax(struct company *arr)
 {
     int i;
     for (i = 0; i < max_number_of_companies && arr[i].name[0]; i++) {
@@ -53,7 +53,7 @@ void set_tax(struct company arr[max_number_of_companies])
     }
 }
 
-void set_dates(struct company arr[max_number_of_companies])
+void set_dates(struct company *arr)
 {
 
     int i;
@@ -64,7 +64,7 @@ void set_dates(struct company arr[max_number_of_companies])
             ("Please enter the date of the deadline for tax payment for the company %s\n",
              arr[i].name);
         printf("DD MMM YYYY:");
-        input_buffer = (char *) calloc(input_buffer_length, 1);
+        input_buffer = (char *) calloc(input_buffer_length, sizeof(char));
         while (1) {
 
             fgets(input_buffer, input_buffer_length, stdin);
@@ -76,7 +76,7 @@ void set_dates(struct company arr[max_number_of_companies])
         }
         arr[i].last_date = mktime(&tm);
         free(input_buffer);
-        input_buffer = (char *) calloc(input_buffer_length, 1);
+        input_buffer = (char *) calloc(input_buffer_length, sizeof(char));
         printf
             ("Please enter date of the actual tax payment for the company %s\n",
              arr[i].name);
@@ -101,7 +101,7 @@ void set_dates(struct company arr[max_number_of_companies])
     }
 }
 
-void display_company_data(struct company arr[max_number_of_companies])
+void display_company_data(struct company *arr)
 {
     int i;
     for (i = 0; i < 5 && arr[i].is_debt; i++) {
