@@ -44,7 +44,7 @@ void set_name(struct company *arr)
             break;
         } else{ 
             strcpy(arr[i].name, input_buffer);
-        free(input_buffer);
+        free(input_buffer);}
     }
 }
 
