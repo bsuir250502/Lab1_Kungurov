@@ -1,3 +1,4 @@
+/* -*- coding: utf-8-dos -*- */
 #include "mystdlib.h"
 char* my_gets(char *buf, size_t buf_size)
 {
