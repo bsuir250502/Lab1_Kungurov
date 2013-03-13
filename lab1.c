@@ -42,7 +42,7 @@ void set_name(struct company *arr)
         if (!strcmp(input_buffer, "end")) {
             arr[i].name[0] = '\0';
             break;
-        } else
+        } else{ 
             strcpy(arr[i].name, input_buffer);
         free(input_buffer);
     }
