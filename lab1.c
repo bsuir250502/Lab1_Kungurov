@@ -3,6 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include <malloc.h>
+#include "mystdlib.h"
 #define _XOPEN_SOURCE 500
 const int max_number_of_companies = 50;
 const int input_buffer_length = 30;
@@ -14,13 +15,6 @@ struct company {
     int is_debt;
 
 };
-
-char* my_gets(char *buf, size_t buf_size)
-{
-fgets(buf, buf_size, stdin);
-buf[strlen(buf)] = '\0';
-return buf;
-}
 
 void check_debt(int i, struct company *arr, time_t monitor_date)
 {
