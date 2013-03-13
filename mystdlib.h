@@ -1,8 +1,8 @@
 #ifndef MYSTDLIB_H_INCLUDED
 #define MYSTDLIB_H_INCLUDED
-
-int mystrcmp(char *str1, char *str2);
-void mystrcpy(char *str1, char *str2);
-int myatoi(char *str);
+#include <stdio.h>
+#include <string.h>
+#include <time.h>
+char* my_gets(char *buf, size_t buf_size);
 
 #endif                          // MYSTDLIB_H_INCLUDED
