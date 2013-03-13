@@ -120,7 +120,7 @@ int main(void)
     set_name(arr);
     set_tax(arr);
     set_dates(arr);
-    for (i = 0; i < 49 && arr[i].name[0]; i++) {
+    for (i = 0; i < max_number_of_companies && arr[i].name[0]; i++) {
         for (j = i + 1; j < max_number_of_companies && arr[j].name[0]; j++) {
             if (atoi(arr[i].tax) < atoi(arr[j].tax)) {
                 tmp = arr[i];
