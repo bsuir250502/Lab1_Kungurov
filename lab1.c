@@ -110,7 +110,7 @@ void display_company_data(struct company arr[50])
 int main(void)
 {
     struct company arr[50];
-    char *str = (char *) malloc(4);
+    char *str = (char *) malloc(30);
     int i, j, n = 0, replaceable, substitutive;
     struct tm tm;
     time_t monitor_date;
@@ -128,7 +128,7 @@ int main(void)
         }
     }
     printf("Please enter the date monitor debt");
-    fgets(str, 15, stdin);
+    fgets(str, 30, stdin);
     strptime(str, "%d %B %y", &tm);
     monitor_date = mktime(&tm);
     for (i = 0; i < 50 && arr[i].name[0]; i++) {
