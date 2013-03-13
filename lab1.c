@@ -71,6 +71,7 @@ void set_dates(struct company *arr)
              arr[i].name);
         printf("DD MMM YYYY:");
         input_buffer = (char *) calloc(input_buffer_length, sizeof(char));
+		memset(&tm,0,sizeof(tm));
         while (1) {
 
             my_gets(input_buffer, input_buffer_length);
