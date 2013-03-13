@@ -1,10 +1,10 @@
+#define _XOPEN_SOURCE 500
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 #include <malloc.h>
 #include "mystdlib.h"
-#define _XOPEN_SOURCE 500
 const int max_number_of_companies = 50;
 const int input_buffer_length = 30;
 struct company {
