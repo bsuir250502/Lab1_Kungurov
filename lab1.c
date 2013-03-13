@@ -3,6 +3,8 @@
 #include <string.h>
 #include <time.h>
 #include <malloc.h>
+const int max_number_of_companies = 50;
+const int input_buffer_length = 30;
 struct company {
     char name[30];
     char tax[7];
@@ -11,7 +13,7 @@ struct company {
     int is_debt;
 
 };
-void check_debt(int i, struct company arr[50], time_t monitor_date)
+void check_debt(int i, struct company arr[max_number_of_companies], time_t monitor_date)
 {
     if (arr[i].is_debt == 1)
         return;
@@ -23,83 +25,83 @@ void check_debt(int i, struct company arr[50], time_t monitor_date)
 }
 
 
-void set_name(struct company arr[50])
+void set_name(struct company arr[max_number_of_companies])
 {
     int i;
-    char *str;
-    for (i = 0; i < 50; i++) {
-        str = (char *) calloc(30, 1);
+    char *input_buffer;
+    for (i = 0; i < max_number_of_companies; i++) {
+        input_buffer = (char *) calloc(input_buffer_length, 1);
         printf("Please enter company name Numb.%d:", i + 1);
-        fgets(str, 30, stdin);
-        *(str + strlen(str) - 1) = '\0';
-        if (!strcmp(str, "end")) {
+        fgets(input_buffer, input_buffer_length, stdin);
+        *(input_buffer + strlen(input_buffer) - 1) = '\0';
+        if (!strcmp(input_buffer, "end")) {
             arr[i].name[0] = '\0';
             break;
         } else
-            strcpy(arr[i].name, str);
-        free(str);
+            strcpy(arr[i].name, input_buffer);
+        free(input_buffer);
     }
 }
 
-void set_tax(struct company arr[50])
+void set_tax(struct company arr[max_number_of_companies])
 {
     int i;
-    for (i = 0; i < 50 && arr[i].name[0]; i++) {
+    for (i = 0; i < max_number_of_companies && arr[i].name[0]; i++) {
         printf("Please enter amount of tax to the company %s:",
                arr[i].name);
         fgets(arr[i].tax, 7, stdin);
     }
 }
 
-void set_dates(struct company arr[50])
+void set_dates(struct company arr[max_number_of_companies])
 {
 
     int i;
-    char *str;
+    char *input_buffer;
     struct tm tm;
-    for (i = 0; i < 50 && arr[i].name[0]; i++) {
+    for (i = 0; i < max_number_of_companies && arr[i].name[0]; i++) {
         printf
             ("Please enter the date of the deadline for tax payment for the company %s\n",
              arr[i].name);
         printf("DD MMM YYYY:");
-        str = (char *) calloc(30, 1);
+        input_buffer = (char *) calloc(input_buffer_length, 1);
         while (1) {
 
-            fgets(str, 30, stdin);
-            *(str + strlen(str) - 1) = '\0';
-            if (!strptime(str, "%d %b %y", &tm))
+            fgets(input_buffer, input_buffer_length, stdin);
+            *(input_buffer + strlen(input_buffer) - 1) = '\0';
+            if (!strptime(input_buffer, "%d %b %y", &tm))
                 printf("Enter correct date");
             else
                 break;
         }
         arr[i].last_date = mktime(&tm);
-        free(str);
-        str = (char *) calloc(30, 1);
+        free(input_buffer);
+        input_buffer = (char *) calloc(input_buffer_length, 1);
         printf
             ("Please enter date of the actual tax payment for the company %s\n",
              arr[i].name);
         printf("DD MMM YYYY:");
         while (1) {
 
-            fgets(str, 30, stdin);
-            if (str[0] == '0') {
+            fgets(input_buffer, input_buffer_length, stdin);
+            if (input_buffer[0] == '0') {
                 arr[i].is_debt = 1;
                 break;
             } else {
                 arr[i].is_debt = 0;
-                *(str + strlen(str) - 1) = '\0';
-                if (!strptime(str, "%d %b %y", &tm))
+                *(input_buffer + strlen(str) - 1) = '\0';
+                if (!strptime(input_buffer, "%d %b %y", &tm))
                     printf("Enter correct date");
                 else
                     break;
             }
         }
         arr[i].act_date = mktime(&tm);
-        free(str);
+        free(input_buffer);
     }
 }
 
-void display_company_data(struct company arr[50])
+void display_company_data(struct company arr[max_number_of_companies])
 {
     int i;
     for (i = 0; i < 5 && arr[i].is_debt; i++) {
@@ -109,8 +111,8 @@ void display_company_data(struct company arr[50])
 
 int main(void)
 {
-    struct company arr[50];
-    char *str = (char *) malloc(30);
+    struct company arr[max_number_of_companies];
+    char *input_buffer = (char *) malloc(input_buffer_length);
     int i, j, n = 0, replaceable, substitutive;
     struct tm tm;
     time_t monitor_date;
@@ -119,7 +121,7 @@ int main(void)
     set_tax(arr);
     set_dates(arr);
     for (i = 0; i < 49 && arr[i].name[0]; i++) {
-        for (j = i + 1; j < 50 && arr[j].name[0]; j++) {
+        for (j = i + 1; j < max_number_of_companies && arr[j].name[0]; j++) {
             if (atoi(arr[i].tax) < atoi(arr[j].tax)) {
                 tmp = arr[i];
                 arr[i] = arr[j];
@@ -128,17 +130,17 @@ int main(void)
         }
     }
     printf("Please enter the date monitor debt");
-    fgets(str, 30, stdin);
-    strptime(str, "%d %B %y", &tm);
+    fgets(input_buffer, input_buffer_length, stdin);
+    strptime(input_buffer, "%d %B %y", &tm);
     monitor_date = mktime(&tm);
-    for (i = 0; i < 50 && arr[i].name[0]; i++) {
+    for (i = 0; i < max_number_of_companies && arr[i].name[0]; i++) {
         check_debt(i, arr, monitor_date);
         printf("%s %d", arr[i].name, arr[i].is_debt);
     }
     while (n < 5) {
         if (!arr[i].is_debt) {
             replaceable = n;
-            for (i = n + 1; i < 30; i++)
+            for (i = n + 1; i < 50; i++)
                 if (arr[i].is_debt) {
                     substitutive = i;
                     break;
