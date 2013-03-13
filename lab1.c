@@ -14,6 +14,14 @@ struct company {
     int is_debt;
 
 };
+
+char* my_gets(char *buf, size_t buf_size)
+{
+fgets(buf, buf_size, stdin);
+buf[strlen(buf)] = '\0';
+return buf;
+}
+
 void check_debt(int i, struct company *arr, time_t monitor_date)
 {
     if (arr[i].is_debt == 1) {
@@ -34,8 +42,7 @@ void set_name(struct company *arr)
     for (i = 0; i < max_number_of_companies; i++) {
         input_buffer = (char *) calloc(input_buffer_length, sizeof(char));
         printf("Please enter company name Numb.%d:", i + 1);
-        fgets(input_buffer, input_buffer_length, stdin);
-        *(input_buffer + strlen(input_buffer) - 1) = '\0';
+        my_gets(input_buffer, input_buffer_length);
         if (!strcmp(input_buffer, "end")) {
             arr[i].name[0] = '\0';
             break;
@@ -51,7 +58,7 @@ void set_tax(struct company *arr)
     for (i = 0; i < max_number_of_companies && arr[i].name[0]; i++) {
         printf("Please enter amount of tax to the company %s:",
                arr[i].name);
-        fgets(arr[i].tax, 7, stdin);
+        my_gets(arr[i].tax, 7);
     }
 }
 
@@ -69,9 +76,8 @@ void set_dates(struct company *arr)
         input_buffer = (char *) calloc(input_buffer_length, sizeof(char));
         while (1) {
 
-            fgets(input_buffer, input_buffer_length, stdin);
+            my_gets(input_buffer, input_buffer_length);
             puts(input_buffer);
-            *(input_buffer + strlen(input_buffer) - 1) = '\0';
             if (*strptime(input_buffer, "%d %b %Y", &tm)) {
                 printf("Enter correct date");
             } else {
@@ -88,7 +94,7 @@ void set_dates(struct company *arr)
         printf("DD MMM YYYY:");
         while (1) {
 
-            fgets(input_buffer, input_buffer_length, stdin);
+            my_gets(input_buffer, input_buffer_length);
             if (input_buffer[0] == '0') {
                 arr[i].is_debt = 1;
                 break;
@@ -137,7 +143,7 @@ int main(void)
         }
     }
     printf("Please enter the date monitor debt");
-    fgets(input_buffer, input_buffer_length, stdin);
+    my_gets(input_buffer, input_buffer_length, stdin);
     strptime(input_buffer, "%d %B %Y", &tm);
     monitor_date = mktime(&tm);
     for (i = 0; i < max_number_of_companies && arr[i].name[0]; i++) {
