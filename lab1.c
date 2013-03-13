@@ -69,7 +69,7 @@ void set_dates(struct company *arr)
 
             fgets(input_buffer, input_buffer_length, stdin);
             *(input_buffer + strlen(input_buffer) - 1) = '\0';
-            if (!*strptime(input_buffer, "%d %b %y", &tm))
+            if (*strptime(input_buffer, "%d %b %y", &tm))
                 printf("Enter correct date");
             else
                 break;
@@ -90,7 +90,7 @@ void set_dates(struct company *arr)
             } else {
                 arr[i].is_debt = 0;
                 *(input_buffer + strlen(input_buffer) - 1) = '\0';
-                if (!*strptime(input_buffer, "%d %b %y", &tm))
+                if (*strptime(input_buffer, "%d %b %y", &tm))
                     printf("Enter correct date");
                 else
                     break;
