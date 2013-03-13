@@ -81,7 +81,6 @@ void set_dates(struct company *arr)
             }
         }
         arr[i].last_date = mktime(&tm);
-        puts(ctime(&arr[i].last_date));
         free(input_buffer);
         input_buffer = (char *) calloc(input_buffer_length, sizeof(char));
         printf
@@ -105,7 +104,6 @@ void set_dates(struct company *arr)
             }
         }
         arr[i].act_date = mktime(&tm);
-        puts(ctime(&arr[i].act_date));
         free(input_buffer);
     }
 }
