@@ -3,6 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include <malloc.h>
+#define _XOPEN_SOURCE 500
 const int max_number_of_companies = 50;
 const int input_buffer_length = 30;
 struct company {
@@ -15,13 +16,14 @@ struct company {
 };
 void check_debt(int i, struct company *arr, time_t monitor_date)
 {
-    if (arr[i].is_debt == 1)
-        return;
+    if (arr[i].is_debt == 1) {
+    return}
     if (arr[i].last_date > monitor_date) {
         arr[i].is_debt = 0;
         return;
-    } else if (arr[i].act_date > monitor_date)
+    } else if (arr[i].act_date > monitor_date) {
         arr[i].is_debt = 1;
+    }
 }
 
 
@@ -70,13 +72,14 @@ void set_dates(struct company *arr)
             fgets(input_buffer, input_buffer_length, stdin);
             puts(input_buffer);
             *(input_buffer + strlen(input_buffer) - 1) = '\0';
-            if (*strptime(input_buffer, "%d %b %y", &tm))
+            if (*strptime(input_buffer, "%d %b %Y", &tm)) {
                 printf("Enter correct date");
-            else
+            } else {
                 break;
+            }
         }
         arr[i].last_date = mktime(&tm);
-		puts(ctime(&arr[i].last_date));
+        puts(ctime(&arr[i].last_date));
         free(input_buffer);
         input_buffer = (char *) calloc(input_buffer_length, sizeof(char));
         printf
@@ -92,10 +95,11 @@ void set_dates(struct company *arr)
             } else {
                 arr[i].is_debt = 0;
                 *(input_buffer + strlen(input_buffer) - 1) = '\0';
-                if (*strptime(input_buffer, "%d %b %y", &tm))
+                if (*strptime(input_buffer, "%d %b %Y", &tm)) {
                     printf("Enter correct date");
-                else
+                } else {
                     break;
+                }
             }
         }
         arr[i].act_date = mktime(&tm);
@@ -134,7 +138,7 @@ int main(void)
     }
     printf("Please enter the date monitor debt");
     fgets(input_buffer, input_buffer_length, stdin);
-    strptime(input_buffer, "%d %B %y", &tm);
+    strptime(input_buffer, "%d %B %Y", &tm);
     monitor_date = mktime(&tm);
     for (i = 0; i < max_number_of_companies && arr[i].name[0]; i++) {
         check_debt(i, arr, monitor_date);
