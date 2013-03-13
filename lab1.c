@@ -97,7 +97,6 @@ void set_dates(struct company *arr)
                 break;
             } else {
                 arr[i].is_debt = 0;
-                *(input_buffer + strlen(input_buffer) - 1) = '\0';
                 if (*strptime(input_buffer, "%d %b %Y", &tm)) {
                     printf("Enter correct date");
                 } else {
