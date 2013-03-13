@@ -143,7 +143,6 @@ int main(void)
     my_gets(input_buffer, input_buffer_length);
     strptime(input_buffer, "%d %B %Y", &tm);
     puts(asctime(&tm));
-    monitor_date = mktime(&tm);
     for (i = 0; i < max_number_of_companies && arr[i].name[0]; i++) {
         check_debt(i, arr, monitor_date);
         printf("%s %d", arr[i].name, arr[i].is_debt);
