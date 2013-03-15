@@ -1,7 +1,7 @@
 #ifndef _DATES_H_
 #define _DATES_H_
 
-#define _XOPEN_SOURSE 500
+#define _XOPEN_SOURCE 500
 #include <time.h>
 #include "mystdlib.h"
 

@@ -60,6 +60,7 @@ int main(void)
     struct company tmp;
     time_t monitor_date;
     char date_format[] = "%d %b %Y";
+    memset(company, 0, sizeof(struct company));
     number_of_companies =
         initialize_companies(companies, max_number_of_companies);
     for (i = 0; i < number_of_companies; i++) {
@@ -79,32 +80,35 @@ int main(void)
     printf("Please enter monitor date (DD MMM YYYY): \n");
     monitor_date = try_get_date("0", date_format);
     printf("monitor_date: %s \n", ctime(&monitor_date));
-
-
-
-    i = 0;
     int j, replaceable, substitutive;
-    /*
-       while (i < number_of_companies) {
-       if (!check_debt(companies[i],monitor_date)) {
-       replaceable = i;
-       for (j = i + 1; j < number_of_companies; j++)
-       if (!check_debt(companies[j],monitor_date)) {
-       substitutive = j;
-       break;
-       }
-       memset(&tmp, 0, sizeof(struct company));
-       tmp = companies[replaceable];
-       companies[replaceable] = companies[substitutive];
-       companies[substitutive] = tmp;
-       }
-       i++;
-       } */
-
-
-
-    for (j = 0; j < number_of_companies; j++) {
-        for (i = 0; i < number_of_companies - 1; i++) {
+    for (i = 0; i < number_of_companies; i++) {
+        for (j = i + 1; j < number_of_companies; j++) {
+            if (companies[i].tax < companies[j].tax) {
+                memset(&tmp, 0, sizeof(struct company));
+                tmp = companies[i];
+                companies[i] = companies[j];
+                companies[j] = tmp;
+            }
+        }
+    }
+    i = 0;
+    while (i < number_of_companies) {
+        if (!check_debt(companies[i], monitor_date)) {
+            replaceable = i;
+            for (j = i + 1; j < number_of_companies; j++)
+                if (check_debt(companies[j], monitor_date)) {
+                    substitutive = j;
+                    memset(&tmp, 0, sizeof(struct company));
+                    tmp = companies[replaceable];
+                    companies[replaceable] = companies[substitutive];
+                    companies[substitutive] = tmp;
+                    break;
+                }
+        }
+        i++;
+    }
+    for (j = 0; check_debt(companies[i], monitor_date); j++) {
+        for (i = 0; check_debt(companies[i + 1], monitor_date); i++) {
             if (strcmp(companies[i].name, companies[i + 1].name) > 0) {
                 memset(&tmp, 0, sizeof(struct company));
                 tmp = companies[i];
@@ -113,9 +117,6 @@ int main(void)
             }
         }
     }
-
-
-
     for (i = 0; i < number_of_companies; i++) {
         display_company(companies[i]);
     }
