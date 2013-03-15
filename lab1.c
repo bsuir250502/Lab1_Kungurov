@@ -41,6 +41,19 @@ int initialize_companies(struct company *companies, size_t max)
     return i;
 }
 
+int namecmp(const void* a, const void* b)
+ {
+    struct company *pa = a;
+    struct company *pb = b;
+    return strcmp(pa->name, pb->name);
+ }
+ int taxcmp(const void* a, const void* b)
+ {
+    struct company *pa = a;
+    struct company *pb = b;
+    return pa->tax - pb->tax;
+ }
+
 
 void display_company(struct company company)
 {
@@ -99,7 +112,8 @@ int main(void)
         }
         i++;
     }
-    for (i = 0; check_debt(companies[i], monitor_date) && i < 5; i++) {
+    qsort(companies, number_of_companies, sizeof(struct company), namecmp);
+    /*for (i = 0; check_debt(companies[i], monitor_date) && i < 5; i++) {
         for (j = i + 1; check_debt(companies[j], monitor_date) && j < 5;
              j++) {
             if (strcmp(companies[i].name, companies[j].name) > 0) {
@@ -109,7 +123,7 @@ int main(void)
                 companies[j] = tmp;
             }
         }
-    }
+    }*/
     puts("\nThe five companies with the most debt, in alphabetical order:");
     for (i = 0; check_debt(companies[i], monitor_date) && i < 5; i++) {
         display_company(companies[i]);
