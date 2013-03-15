@@ -80,7 +80,6 @@ int main(void)
     monitor_date = try_get_date("0", date_format);
     printf("monitor_date: %s \n", ctime(&monitor_date));
     int j, replaceable, substitutive;
-    i = 0;
 	for (i = 0; i < number_of_companies; i++) {
         for (j = i + 1; j < number_of_companies; j++) {
             if (companies[i].tax < companies[j].tax) {
@@ -91,6 +90,7 @@ int main(void)
             }
         }
     }
+	i = 0;
     while (i < number_of_companies) {
         if (!check_debt(companies[i], monitor_date)) {
             replaceable = i;
@@ -106,17 +106,17 @@ int main(void)
         }
         i++;
     }
-    for (j = 0; check_debt(companies[i], monitor_date); j++) {
-        for (i = 0; check_debt(companies[i + 1], monitor_date); i++) {
-            if (strcmp(companies[i].name, companies[i + 1].name) > 0) {
+    for (i = 0; check_debt(companies[i], monitor_date) && i < 5; i++) {
+        for (j = i+1; check_debt(companies[j], monitor_date) && j < 5; j++) {
+            if (strcmp(companies[i].name, companies[j].name) > 0) {
                 memset(&tmp, 0, sizeof(struct company));
                 tmp = companies[i];
-                companies[i] = companies[i + 1];
-                companies[i + 1] = tmp;
+                companies[i] = companies[j];
+                companies[j] = tmp;
             }
         }
     }
-    for (i = 0; i < number_of_companies; i++) {
+    for (i = 0; check_debt(companies[i], monitor_date) && i < 5; i++) {
         display_company(companies[i]);
     }
     return 0;
