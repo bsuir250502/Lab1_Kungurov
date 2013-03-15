@@ -35,6 +35,6 @@ If at some point you decide that you would like to remove all of the project fil
 
 $ premake --clean
 
-Then at the command line write:
+To regenerate Makefile use the following commands:
 $ premake4 clean
 $ premake4 gmake
