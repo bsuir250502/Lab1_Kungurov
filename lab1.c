@@ -69,7 +69,7 @@ int main(void)
         printf
             ("Please enter actual tax payment date or 0 for no date (DD MMM YYYY): \n");
         company->act_date = try_get_date("0", date_format);
-        }
+    }
     printf("Please enter monitor date (DD MMM YYYY): \n");
     monitor_date = try_get_date("0", date_format);
     int j, replaceable, substitutive;
