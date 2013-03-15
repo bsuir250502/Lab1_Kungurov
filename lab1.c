@@ -54,13 +54,12 @@ int main(void)
 {
     const int max_number_of_companies = 50;
     struct company companies[max_number_of_companies];
-    struct company *company;
+	struct company *company;
     int number_of_companies;
     int i;
     struct company tmp;
     time_t monitor_date;
     char date_format[] = "%d %b %Y";
-    memset(company, 0, sizeof(struct company));
     number_of_companies =
         initialize_companies(companies, max_number_of_companies);
     for (i = 0; i < number_of_companies; i++) {
@@ -81,7 +80,8 @@ int main(void)
     monitor_date = try_get_date("0", date_format);
     printf("monitor_date: %s \n", ctime(&monitor_date));
     int j, replaceable, substitutive;
-    for (i = 0; i < number_of_companies; i++) {
+    i = 0;
+	for (i = 0; i < number_of_companies; i++) {
         for (j = i + 1; j < number_of_companies; j++) {
             if (companies[i].tax < companies[j].tax) {
                 memset(&tmp, 0, sizeof(struct company));
@@ -91,7 +91,6 @@ int main(void)
             }
         }
     }
-    i = 0;
     while (i < number_of_companies) {
         if (!check_debt(companies[i], monitor_date)) {
             replaceable = i;
