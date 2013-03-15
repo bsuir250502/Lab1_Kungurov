@@ -44,7 +44,7 @@ int initialize_companies(struct company *companies, size_t max)
 
 void display_company(struct company company)
 {
-    printf("name: %s\n", company.name);
+    printf("\nname: %s\n", company.name);
     printf("   tax: %ld\n", company.tax);
     printf("   last_date: %s", ctime(&company.last_date));
     printf("   act_date: %s", ctime(&company.act_date));
@@ -116,6 +116,7 @@ int main(void)
             }
         }
     }
+	puts("\nThe five companies with the most debt, in alphabetical order:"); 
     for (i = 0; check_debt(companies[i], monitor_date) && i < 5; i++) {
         display_company(companies[i]);
     }
