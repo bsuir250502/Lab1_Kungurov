@@ -54,7 +54,7 @@ int main(void)
 {
     const int max_number_of_companies = 50;
     struct company companies[max_number_of_companies];
-	struct company *company;
+    struct company *company;
     int number_of_companies;
     int i;
     struct company tmp;
@@ -80,7 +80,7 @@ int main(void)
     monitor_date = try_get_date("0", date_format);
     printf("monitor_date: %s \n", ctime(&monitor_date));
     int j, replaceable, substitutive;
-	for (i = 0; i < number_of_companies; i++) {
+    for (i = 0; i < number_of_companies; i++) {
         for (j = i + 1; j < number_of_companies; j++) {
             if (companies[i].tax < companies[j].tax) {
                 memset(&tmp, 0, sizeof(struct company));
@@ -90,7 +90,7 @@ int main(void)
             }
         }
     }
-	i = 0;
+    i = 0;
     while (i < number_of_companies) {
         if (!check_debt(companies[i], monitor_date)) {
             replaceable = i;
@@ -107,7 +107,8 @@ int main(void)
         i++;
     }
     for (i = 0; check_debt(companies[i], monitor_date) && i < 5; i++) {
-        for (j = i+1; check_debt(companies[j], monitor_date) && j < 5; j++) {
+        for (j = i + 1; check_debt(companies[j], monitor_date) && j < 5;
+             j++) {
             if (strcmp(companies[i].name, companies[j].name) > 0) {
                 memset(&tmp, 0, sizeof(struct company));
                 tmp = companies[i];
@@ -116,7 +117,7 @@ int main(void)
             }
         }
     }
-	puts("\nThe five companies with the most debt, in alphabetical order:"); 
+    puts("\nThe five companies with the most debt, in alphabetical order:");
     for (i = 0; check_debt(companies[i], monitor_date) && i < 5; i++) {
         display_company(companies[i]);
     }
