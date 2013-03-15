@@ -45,9 +45,6 @@ int initialize_companies(struct company *companies, size_t max)
 void display_company(struct company company)
 {
     printf("\nname: %s\n", company.name);
-    printf("   tax: %ld\n", company.tax);
-    printf("   last_date: %s", ctime(&company.last_date));
-    printf("   act_date: %s", ctime(&company.act_date));
 }
 
 int main(void)
@@ -72,13 +69,9 @@ int main(void)
         printf
             ("Please enter actual tax payment date or 0 for no date (DD MMM YYYY): \n");
         company->act_date = try_get_date("0", date_format);
-    }
-    for (i = 0; i < number_of_companies; i++) {
-        display_company(companies[i]);
-    }
+        }
     printf("Please enter monitor date (DD MMM YYYY): \n");
     monitor_date = try_get_date("0", date_format);
-    printf("monitor_date: %s \n", ctime(&monitor_date));
     int j, replaceable, substitutive;
     for (i = 0; i < number_of_companies; i++) {
         for (j = i + 1; j < number_of_companies; j++) {
