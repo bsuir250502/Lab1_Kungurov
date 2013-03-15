@@ -38,7 +38,7 @@ int initialize_companies(struct company *companies, size_t max)
             strcpy(companies[i].name, input_buffer);
         }
     }
-	return i;
+    return i;
 }
 
 
@@ -57,7 +57,7 @@ int main(void)
     struct company *company;
     int number_of_companies;
     int i;
-	struct company tmp;
+    struct company tmp;
     time_t monitor_date;
     char date_format[] = "%d %b %Y";
     number_of_companies =
@@ -79,13 +79,13 @@ int main(void)
     printf("Please enter monitor date (DD MMM YYYY): \n");
     monitor_date = try_get_date("0", date_format);
     printf("monitor_date: %s \n", ctime(&monitor_date));
-	
-	
-	
-	i = 0;
-	int j,replaceable,substitutive;
-	/*
-	while (i < number_of_companies) {
+
+
+
+    i = 0;
+    int j, replaceable, substitutive;
+    /*
+       while (i < number_of_companies) {
        if (!check_debt(companies[i],monitor_date)) {
        replaceable = i;
        for (j = i + 1; j < number_of_companies; j++)
@@ -93,30 +93,30 @@ int main(void)
        substitutive = j;
        break;
        }
-	   memset(&tmp, 0, sizeof(struct company));
+       memset(&tmp, 0, sizeof(struct company));
        tmp = companies[replaceable];
        companies[replaceable] = companies[substitutive];
        companies[substitutive] = tmp;
        }
        i++;
-       }*/
-	   
-	   
-	   
-       for (j = 0; j < number_of_companies; j++) {
-       for (i = 0; i < number_of_companies - 1; i++) {
-       if (strcmp(companies[i].name, companies[i + 1].name) > 0) {
-	   memset(&tmp, 0, sizeof(struct company));
-       tmp = companies[i];
-       companies[i] = companies[i + 1];
-       companies[i + 1] = tmp;
-       }
-       }
-       }
-	   
-	   
-	   
-	for (i = 0; i < number_of_companies; i++) {
+       } */
+
+
+
+    for (j = 0; j < number_of_companies; j++) {
+        for (i = 0; i < number_of_companies - 1; i++) {
+            if (strcmp(companies[i].name, companies[i + 1].name) > 0) {
+                memset(&tmp, 0, sizeof(struct company));
+                tmp = companies[i];
+                companies[i] = companies[i + 1];
+                companies[i + 1] = tmp;
+            }
+        }
+    }
+
+
+
+    for (i = 0; i < number_of_companies; i++) {
         display_company(companies[i]);
     }
     return 0;
