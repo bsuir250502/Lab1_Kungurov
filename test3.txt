@@ -1,14 +1,14 @@
-Microsoft
-Asus
-HP
+micro
+asus
+acer
 end
-510
-520
-763
+630
 16 feb 2013
-18 nov 2013
+19 feb 2013
+520
 23 dec 2012
 23 dec 2014
+510
 17 feb 2013
-28 feb 2013
+0
 20 feb 2013
