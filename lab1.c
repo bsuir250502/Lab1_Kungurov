@@ -41,25 +41,26 @@ int initialize_companies(struct company *companies, size_t max)
     return i;
 }
 
-int namecmp(const void* a, const void* b)
- {
+int namecmp(const void *a, const void *b)
+{
     struct company *pa = a;
     struct company *pb = b;
     return strcmp(pa->name, pb->name);
- }
- int debtcmp(const void* a, const void* b, ...)
+}
+
+int debtcmp(const void *a, const void *b, ...)
 {
     static time_t monitor_date = 0;
     struct company *pb = a;
     struct company *pa = b;
     va_list ap;
-    if(!a && !b) {
-        va_start (ap, b);
+    if (!a && !b) {
+        va_start(ap, b);
         monitor_date = va_arg(ap, time_t);
         va_end(ap);
         return 0;
     };
-    return check_debt(*pa,monitor_date) - check_debt (*pb,monitor_date);
+    return check_debt(*pa, monitor_date) - check_debt(*pb, monitor_date);
 }
 
 void display_company(struct company company)
@@ -92,12 +93,14 @@ int main(void)
     }
     printf("Please enter monitor date (DD MMM YYYY): \n");
     monitor_date = try_get_date("0", date_format);
-    int j, replaceable, substitutive;
-    debtcmp(NULL,NULL,monitor_date);
+    int j, replaceable, substitutive, number_of_debt_companies;
+    debtcmp(NULL, NULL, monitor_date);
     qsort(companies, number_of_companies, sizeof(struct company), debtcmp);
-    qsort(companies, 5, sizeof(struct company), namecmp);
+    for (i = 0; check_debt(companies[i],monitor_date) && i < 5; i++);
+    number_of_debt_companies = i;
+    qsort(companies, number_of_debt_companies, sizeof(struct company), namecmp);
     puts("\nThe five companies with the most debt, in alphabetical order:");
-    for (i = 0; check_debt(companies[i],monitor_date) && i < 5; i++) {
+    for (i = 0; i < number_of_debt_companies; i++) {
         printf("\nname: %s\n", companies[i].name);
     }
     return 0;
