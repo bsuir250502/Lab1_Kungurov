@@ -63,11 +63,6 @@ int debtcmp(const void *a, const void *b, ...)
     return check_debt(*pa, monitor_date) - check_debt(*pb, monitor_date);
 }
 
-void display_company(struct company company)
-{
-    printf("\nname: %s\n", company.name);
-}
-
 int main(void)
 {
     const int max_number_of_companies = 50;
