@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <malloc.h>
+#include <stdarg.h>
 #include "mystdlib.h"
 #include "dates.h"
 
@@ -22,7 +23,6 @@ int check_debt(struct company company, time_t monitor_date)
     }
     return debt;
 }
-
 
 int initialize_companies(struct company *companies, size_t max)
 {
@@ -47,13 +47,20 @@ int namecmp(const void* a, const void* b)
     struct company *pb = b;
     return strcmp(pa->name, pb->name);
  }
- int taxcmp(const void* a, const void* b)
- {
+ int debtcmp(const void* a, const void* b, ...)
+{
+    static time_t monitor_date = 0;
     struct company *pa = a;
     struct company *pb = b;
-    return pa->tax - pb->tax;
- }
-
+    va_list ap;
+    if(!a && !b) {
+        va_start (ap, b);
+        monitor_date = va_arg(ap, time_t);
+        va_end(ap);
+        return 0;
+    };
+    return check_debt(*pa,monitor_date) - check_debt (*pb,monitor_date);
+}
 
 void display_company(struct company company)
 {
@@ -86,7 +93,9 @@ int main(void)
     printf("Please enter monitor date (DD MMM YYYY): \n");
     monitor_date = try_get_date("0", date_format);
     int j, replaceable, substitutive;
-    for (i = 0; i < number_of_companies; i++) {
+	debtcmp(NULL,NULL,monitor_date);
+	qsort(companies, number_of_companies, sizeof(struct company), debtcmp);
+    /*for (i = 0; i < number_of_companies; i++) {
         for (j = i + 1; j < number_of_companies; j++) {
             if (companies[i].tax < companies[j].tax) {
                 memset(&tmp, 0, sizeof(struct company));
@@ -111,9 +120,9 @@ int main(void)
                 }
         }
         i++;
-    }
-    qsort(companies, number_of_companies, sizeof(struct company), namecmp);
-    /*for (i = 0; check_debt(companies[i], monitor_date) && i < 5; i++) {
+    }*/
+    //qsort(companies, number_of_companies, sizeof(struct company), namecmp);
+    for (i = 0; check_debt(companies[i], monitor_date) && i < 5; i++) {
         for (j = i + 1; check_debt(companies[j], monitor_date) && j < 5;
              j++) {
             if (strcmp(companies[i].name, companies[j].name) > 0) {
@@ -123,7 +132,7 @@ int main(void)
                 companies[j] = tmp;
             }
         }
-    }*/
+    }
     puts("\nThe five companies with the most debt, in alphabetical order:");
     for (i = 0; check_debt(companies[i], monitor_date) && i < 5; i++) {
         display_company(companies[i]);
