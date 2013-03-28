@@ -5,3 +5,4 @@ obj/
 *.workspace
 *.cbp
 *.stackdump
+*.layout

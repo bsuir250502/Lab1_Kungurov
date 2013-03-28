@@ -63,7 +63,7 @@ int debtcmp(const void *a, const void *b, ...)
     return check_debt(*pa, monitor_date) - check_debt(*pb, monitor_date);
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
     const int max_number_of_companies = 50;
     struct company companies[max_number_of_companies];
@@ -73,6 +73,9 @@ int main(void)
     struct company tmp;
     time_t monitor_date;
     char date_format[] = "%d %b %Y";
+    if (argc == 2){
+        if ((strcmp(argv[1],"-h"))==0) { puts("Instructions for use:\n 1.Start the program (cd drive :/ place / location / file / -> make -> ./lab1).\n2. Company name. Our offers to enter the business name, type a name (no more than 30 characters)\nthen click <enter>. Entering stop when you enter the 50 firms, or if you need a stop earlier,\njust type 'end' (without the quotes). You will then proceed to enter personal information\nfor each firm.\n3. PERSONAL INFORMATION FOR EACH OF COMPANIES.\n    3.1. To offer input tax (tax), enter the number (not more than 7 digits).\n    3.2. Next, enter the date of the offer closing date (deadline), type the date in\n        format DD MMM YYYY (Ex. 01 jan 1970) or write the month when you enter a fully\n        (Ex. 01 january 1970). If you enter the wrong program will tell you.\n    3.3. Next on the proposal to introduce the date of actual payment, enter the date (see section 3.2)\n    or '0' (zero), if the payment of the tax has not been made.\nItems 3.1 - 3.2 is repeated for all input firms.\n4. DATE AT THE TIME TRACKING be produced by the debtor. The proposal to introduce\ndate monitoring of debtors (monitor_date), enter in the mentioned format (see section 3.2).\n"); return 0;}}
+       
     number_of_companies =
         initialize_companies(companies, max_number_of_companies);
     for (i = 0; i < number_of_companies; i++) {
