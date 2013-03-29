@@ -6,7 +6,7 @@ time_t parse_date(const char *input_buffer, const char *format,
 {
     struct tm tm;
     time_t res;
-    int *strptime_result;
+    char *strptime_result;
     memset(&tm, 0, sizeof(struct tm));
     strptime_result = strptime(input_buffer, format, &tm);
     if (strptime_result && *strptime_result == '\0') {
