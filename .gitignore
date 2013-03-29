@@ -6,3 +6,4 @@ obj/
 *.cbp
 *.stackdump
 *.layout
+*.c.orig

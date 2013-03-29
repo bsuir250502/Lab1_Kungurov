@@ -8,7 +8,6 @@
 #include "dates.h"
 #define input_buffer_length 31
 #define  max_number_of_companies 50
-#define SIZE( x ) (sizeof( x )/sizeof( *x ))
 struct company {
     char name[30];
     long int tax;

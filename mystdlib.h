@@ -12,4 +12,4 @@ int read_number(void);
 char *my_gets(char *buf, size_t buf_size);
 int parse_number(const char *str, error_tm * err);
 
-#endif                          // MYSTDLIB_H_INCLUDED
+#endif                         /* MYSTDLIB_H_INCLUDED */

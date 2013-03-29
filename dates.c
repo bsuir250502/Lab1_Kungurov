@@ -1,11 +1,12 @@
 #include "dates.h"
+#define input_buffer_length 31
 
 time_t parse_date(const char *input_buffer, const char *format,
                   error_tm * err)
 {
     struct tm tm;
     time_t res;
-    char *strptime_result;
+    int *strptime_result;
     memset(&tm, 0, sizeof(struct tm));
     strptime_result = strptime(input_buffer, format, &tm);
     if (strptime_result && *strptime_result == '\0') {
@@ -26,7 +27,6 @@ time_t try_get_date(char *terminate_string, const char *format)
     error_tm err;
     time_t res;
     int first = 1;
-    const int input_buffer_length = 31;
     char input_buffer[input_buffer_length];
     do {
         if (!first) {
